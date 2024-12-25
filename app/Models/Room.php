@@ -10,16 +10,21 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-        'room_number', 'room_type', 'price', 'description', 'image', 'availability',
+        'room_number',
+        'room_type',
+        'price',
+        'occupancy',
+        'description',
+        'image',
     ];
 
-    public function bookRoom()
-    {
-        $this->update(['availability' => false]);
-    }
+    // public function bookRoom()
+    // {
+    //     $this->update(['availability' => false]);
+    // }
 
-    public function releaseRoom()
-    {
-        $this->update(['availability' => true]);
-    }
+    // public function releaseRoom()
+    // {
+    //     $this->update(['availability' => true]);
+    // }
 }
