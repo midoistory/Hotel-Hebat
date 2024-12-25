@@ -4,7 +4,8 @@ use App\Http\Controllers\Dashboard\Admin\{
     DashboardController,
     RoomController,
     RoomFacilityController,
-    HotelFacilityController
+    HotelFacilityController,
+    RoomTypeController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -23,24 +24,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Admin
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index']);
-});
-
-// // Resepsionis
-// Route::middleware(['auth', 'role:resepsionis'])->group(function () {
-//     Route::get('/resepsionis/dashboard', [ResepsionisController::class, 'index']);
-// });
-
-// // Tamu
-// Route::middleware(['auth', 'role:tamu'])->group(function () {
-//     Route::get('/hotelhebat', [TamuController::class, 'index']);
+// // Admin
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::get('/admin/dashboard', [AdminController::class, 'index']);
 // });
 
 Route::prefix('hotel-hebat/admin')->name('admin.')->group(function() {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Room
+    Route::resource('roomtype', RoomTypeController::class);
 
     // Room
     Route::resource('rooms', RoomController::class);
