@@ -1,8 +1,8 @@
 @extends('dashboard.admin.template')
 
-@section('title-web', 'Create New Room')
+@section('title-web', 'Buat Ruangan Baru')
 
-@section('title-content', 'Create Room')
+@section('title-content', 'Buat Ruangan')
 
 @section('content')
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -10,56 +10,44 @@
             @csrf
 
             <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Room Number</span>
-                <input type="number" name="room_number"
+                <span class="text-gray-700 dark:text-gray-400">Nomor Ruangan</span>
+                <input type="number" name="room_number" value="{{ old('room_number') }}"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     placeholder="101" required />
+                @if ($errors->has('room_number'))
+                    <p class="text-red-600 text-sm mt-1">{{ $errors->first('room_number') }}</p>
+                @endif
             </label>
 
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Room Type</span>
-                <select name="room_type"
+                <span class="text-gray-700 dark:text-gray-400">Tipe Ruangan</span>
+                <select name="room_type_id"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
-                    <option value="Standard">Standard</option>
-                    <option value="Deluxe">Deluxe</option>
-                    <option value="Suite">Suite</option>
+                    <option value="" disabled selected>Pilih tipe ruangan</option>
+                    @foreach ($roomTypes as $roomType)
+                        <option value="{{ $roomType->id }}" {{ old('room_type_id') == $roomType->id ? 'selected' : '' }}>
+                            {{ $roomType->name }}
+                        </option>
+                    @endforeach
                 </select>
+                @if ($errors->has('room_type_id'))
+                    <p class="text-red-600 text-sm mt-1">{{ $errors->first('room_type_id') }}</p>
+                @endif
             </label>
 
-            <div class="mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Price</span>
-                <input type="number" name="price" step="0.01"
-                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    required />
-            </div>
-
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Occupancy</span>
-                <select name="occupancy"
+                <span class="text-gray-700 dark:text-gray-400">Status</span>
+                <select name="occupancy" value='{{ old('occupancy') }}'
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
-                    <option value="Available">Available</option>
-                    <option value="Occupied">Occupied</option>
-                    <option value="Maintenance">Maintenance</option>
+                    <option value="" disabled selected>Pilih status</option>
+                    <option value="Available">Tersedia</option>
+                    <option value="Occupied">Terisi</option>
+                    <option value="Maintenance">Pemeliharaan</option>
                 </select>
+                @if ($errors->has('occupancy'))
+                    <p class="text-red-600 text-sm mt-1">{{ $errors->first('occupancy') }}</p>
+                @endif
             </label>
-
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Description</span>
-                <textarea name="description"
-                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    rows="4"></textarea>
-            </label>
-
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Room Image</span>
-                <input type="file" name="image"
-                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    onchange="previewImage(event)" />
-            </label>
-
-            <div class="mt-4" id="image-preview-container">
-                <img id="image-preview" src="" alt="Image Preview" class="hidden w-32 h-32 object-cover rounded-md">
-            </div>
 
             <a href="{{ route('admin.rooms.index') }}"
                 class="mt-12 px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-400 hover:bg-gray-500 focus:outline-none focus:shadow-outline-gray">
@@ -72,21 +60,4 @@
             </button>
         </form>
     </div>
-
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const imgElement = document.getElementById('image-preview');
-                imgElement.src = e.target.result;
-                imgElement.classList.remove('hidden');
-            };
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 @endsection

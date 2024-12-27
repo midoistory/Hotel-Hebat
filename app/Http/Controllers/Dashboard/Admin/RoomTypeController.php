@@ -22,21 +22,15 @@ class RoomTypeController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|unique:room_types,name|max:255',
-            'room_size' => 'required|numeric|min:0',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
+        $validatedData = $request->validate($this->roomTypeValidationRules());
 
         $imagePath = $request->hasFile('image')
-            ? $request->file('image')->store('room_types', 'public')
-            : null;
+        ? $request->file('image')->store('room_types', 'public')
+        : null;
 
         RoomType::create(array_merge($validatedData, ['image' => $imagePath]));
 
-        return redirect()->route('admin.roomtype.index')->with('success', 'Room type created successfully!');
+        return redirect()->route('admin.roomtype.index')->with('success', 'Tipe Ruangan berhasil ditambahkan!');
     }
 
     public function show($id)
@@ -55,26 +49,18 @@ class RoomTypeController extends Controller
     {
         $roomType = RoomType::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'room_size' => 'required|integer',
-            'price' => 'required|numeric',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $validatedData = $request->validate($this->roomTypeValidationRules());
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('room_types', 'public');
-            $roomType->image = $imagePath;
+            if ($roomType->image) {
+                Storage::disk('public')->delete($roomType->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('room_types', 'public');
         }
 
-        $roomType->name = $request->name;
-        $roomType->room_size = $request->room_size;
-        $roomType->price = $request->price;
-        $roomType->description = $request->description;
-        $roomType->save();
+        $roomType->update($validatedData);
 
-        return redirect()->route('admin.roomtype.index')->with('success', 'Room Type updated successfully!');
+        return redirect()->route('admin.roomtype.index')->with('success', 'Tipe ruangan berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -86,7 +72,17 @@ class RoomTypeController extends Controller
         }
         $roomType->delete();
 
-        return redirect()->route('admin.roomtype.index')->with('success', 'Room type deleted successfully!');
+        return redirect()->route('admin.roomtype.index')->with('success', 'Tipe ruangan berrhasil dihapus.');
     }
 
+    private function roomTypeValidationRules($id = null)
+    {
+        return [
+            'name' => 'required|string|max:255' . $id,
+            'room_size' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        ];
+    }
 }

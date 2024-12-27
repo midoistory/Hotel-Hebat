@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\RoomFacility;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 
 class RoomFacilityController extends Controller
@@ -12,8 +14,8 @@ class RoomFacilityController extends Controller
      */
     public function index()
     {
-        $facilities = roomfacility::all();
-        return view('dashboard.admin.roomfacility.index', compact('facilities'));
+        $roomFacilities = RoomFacility::with('roomType:id,name')->paginate(10);
+        return view('dashboard.admin.roomFacility.index', compact('roomFacilities'));
     }
 
     /**
@@ -21,7 +23,9 @@ class RoomFacilityController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.roomfacility.create');
+        $roomTypes = RoomType::select('id', 'name')->get();
+        $usedRoomTypes = RoomFacility::pluck('room_type_id')->toArray();
+        return view('dashboard.admin.roomFacility.create', compact('roomTypes', 'usedRoomTypes'));
     }
 
     /**
@@ -29,41 +33,90 @@ class RoomFacilityController extends Controller
      */
     public function store(Request $request)
     {
-        roomfacility::create($request->all());
-        return redirect()->route('dashboard.admin.roomfacility.index');
+        $usedRoomTypes = RoomFacility::pluck('room_type_id')->toArray();
+
+        $validatedData = $request->validate([
+            'room_type_id' => [
+                'required',
+                'exists:room_types,id',
+                function ($attribute, $value, $fail) use ($usedRoomTypes) {
+                    if (in_array($value, $usedRoomTypes)) {
+                        $fail('Fasilitas untuk tipe ruangan ini sudah dibuat.');
+                    }
+                },
+            ],
+            'kamar' => 'nullable|string',
+            'perlengkapan_tidur' => 'nullable|string',
+            'umum' => 'nullable|string',
+            'makan' => 'nullable|string',
+            'media' => 'nullable|string',
+            'kamar_mandi' => 'nullable|string',
+        ]);
+
+        RoomFacility::create($validatedData);
+
+        return redirect()->route('admin.roomfacility.index')->with('success', 'Fasilitas berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(roomfacility $roomfacility)
+    public function show($id)
     {
-        return view('dashboard.admin.roomfacility.view', compact('roomfacility'));
+        $roomFacility = RoomFacility::findOrFail($id);
+        $roomTypes = RoomType::select('id', 'name')->get();
+        return view('dashboard.admin.roomFacility.view', compact('roomFacility', 'roomTypes'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(roomfacility $roomfacility)
+    public function edit($id)
     {
-        return view('dashboard.admin.roomfacility.edit', compact('roomfacility'));
+        $roomFacility = RoomFacility::findOrFail($id);
+        $roomTypes = RoomType::select('id', 'name')->get();
+        $usedRoomTypes = RoomFacility::where('id', '!=', $id)->pluck('room_type_id')->toArray();
+        return view('dashboard.admin.roomFacility.edit', compact('roomFacility', 'roomTypes', 'usedRoomTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, roomfacility $roomfacility)
+    public function update(Request $request, $id)
     {
-        $roomfacility->update($request->all());
-        return redirect()->route('dashboard.admin.roomfacility.index');
+        $roomFacility = RoomFacility::findOrFail($id);
+        $usedRoomTypes = RoomFacility::where('id', '!=', $roomFacility->id)->pluck('room_type_id')->toArray();
+
+        $validatedData = $request->validate([
+            'room_type_id' => [
+                'required',
+                'exists:room_types,id',
+                function ($attribute, $value, $fail) use ($usedRoomTypes) {
+                    if (in_array($value, $usedRoomTypes)) {
+                        $fail('Fasilitas untuk tipe ruangan ini sudah dibuat.');
+                    }
+                },
+            ],
+            'kamar' => 'nullable|string',
+            'perlengkapan_tidur' => 'nullable|string',
+            'umum' => 'nullable|string',
+            'makan' => 'nullable|string',
+            'media' => 'nullable|string',
+            'kamar_mandi' => 'nullable|string',
+        ]);
+
+        $roomFacility->update($validatedData);
+
+        return redirect()->route('admin.roomfacility.index')->with('success', 'Fasilitas berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $roomfacility->delete();
-        return redirect()->route('dashboard.admin.roomfacility.index');
+        $roomFacility = RoomFacility::findOrFail($id);
+        $roomFacility->delete();
+        return redirect()->route('admin.roomfacility.index')->with('success', 'Fasilitas berhasil dihapus.');
     }
 }

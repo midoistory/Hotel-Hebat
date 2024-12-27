@@ -1,8 +1,8 @@
 @extends('dashboard.admin.template')
 
-@section('title-web', 'Edit Room Type')
+@section('title-web', 'Ubah Tipe Ruangan')
 
-@section('title-content', 'Edit Room Type')
+@section('title-content', 'Ubah Tipe Ruangan')
 
 @section('content')
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -11,7 +11,7 @@
             @method('PUT')
 
             <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Room Type</span>
+                <span class="text-gray-700 dark:text-gray-400">Tipe Ruangan</span>
                 <input type="text" name="name"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     value="{{ old('name', $roomType->name) }}" placeholder="Deluxe" required />
@@ -20,8 +20,8 @@
                 @endif
             </label>
 
-            <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Room Size</span>
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Luas Ruangan</span>
                 <input type="number" name="room_size"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     value="{{ old('room_size', $roomType->room_size) }}" placeholder="30" required />
@@ -31,7 +31,7 @@
             </label>
 
             <div class="mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Price</span>
+                <span class="text-gray-700 dark:text-gray-400">Harga</span>
                 <input type="number" name="price" step="0.01"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     value="{{ old('price', $roomType->price) }}" required />
@@ -41,7 +41,7 @@
             </div>
 
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Description</span>
+                <span class="text-gray-700 dark:text-gray-400">Deskripsi</span>
                 <textarea name="description"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     rows="4">{{ old('description', $roomType->description) }}</textarea>
@@ -51,7 +51,7 @@
             </label>
 
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Room Type Image</span>
+                <span class="text-gray-700 dark:text-gray-400">Gambar Tipe Ruangan</span>
                 <input type="file" name="image"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     onchange="previewImage(event)" />

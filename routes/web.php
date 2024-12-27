@@ -4,7 +4,6 @@ use App\Http\Controllers\Dashboard\Admin\{
     DashboardController,
     RoomController,
     RoomFacilityController,
-    HotelFacilityController,
     RoomTypeController
 };
 use Illuminate\Support\Facades\Route;
@@ -42,6 +41,6 @@ Route::prefix('hotel-hebat/admin')->name('admin.')->group(function() {
     // Room Facility
     Route::resource('roomfacility', RoomFacilityController::class);
 
-    // Hotel Facility
-    Route::resource('hotelfacility', HotelFacilityController::class);
+    // // Hotel Facility
+    // Route::resource('hotelfacility', HotelFacilityController::class);
 });

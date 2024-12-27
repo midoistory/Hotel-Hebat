@@ -27,8 +27,8 @@
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-        <!-- Sidebar -->
-        <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+        <!-- Dekstop Sidebar -->
+        <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0" id="sidebar">
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                     Admin
@@ -104,10 +104,10 @@
                                     :class="{ 'text-purple-500': isActive('/admin/roomfacility') }">
                                     <a href="{{ route('admin.roomfacility.index') }}">Room Facility</a>
                                 </li>
-                                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                {{-- <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                                     :class="{ 'text-purple-500': isActive('/admin/hotelfacility') }">
                                     <a href="{{ route('admin.hotelfacility.index') }}">Hotel Facility</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </template>
                     </li>
@@ -115,6 +115,11 @@
             </div>
         </aside>
 
+        <!-- Mobile Sidebar -->
+        <aside class="z-20 fixed inset-0 flex items-start justify-start w-full bg-white dark:bg-gray-800 md:hidden"
+            id="sidebar-mobile" x-show="isMobileSidebarOpen" x-transition>
+            <!-- Konten Sidebar -->
+        </aside>
 
         <div class="flex flex-col flex-1 w-full">
             <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">

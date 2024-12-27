@@ -1,8 +1,8 @@
 @extends('dashboard.admin.template')
 
-@section('title-web', 'Room Types')
+@section('title-web', 'Tipe Ruangan')
 
-@section('title-content', 'Data Room Types')
+@section('title-content', 'Data Tipe Ruangan')
 
 @section('btn-create')
     <div>
@@ -36,10 +36,10 @@
         <thead>
             <tr
                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th class="px-4 py-3">Room Type</th>
-                <th class="px-4 py-3">Price</th>
-                <th class="px-4 py-3">Total Room</th>
-                <th class="px-4 py-3">Actions</th>
+                <th class="px-4 py-3">Tipe Ruangan</th>
+                <th class="px-4 py-3">Harga</th>
+                <th class="px-4 py-3">Total Ruangan</th>
+                <th class="px-4 py-3">Aksi</th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">

@@ -11,31 +11,23 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::with('roomType')->paginate(10);
+        $rooms = Room::with('roomType:id,name')->paginate(10);
         return view('dashboard.admin.room.index', compact('rooms'));
     }
 
     public function create()
     {
-        $roomTypes = RoomType::all();
+        $roomTypes = RoomType::select('id', 'name')->get();
         return view('dashboard.admin.room.create', compact('roomTypes'));
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'room_number'   => 'required|unique:rooms,room_number|digits:3',
-            'room_type_id' => 'required|exists:room_types,id',
-            'occupancy' => 'required|in:Available,Occupied,Maintenance',
-        ]);
+        $validatedData = $request->validate($this->roomValidationRules());
 
-        Room::create([
-            'room_number'   => $validatedData['room_number'],
-            'room_type_id' => $validatedData['room_type_id'],
-            'occupancy' => $validatedData['occupancy'],
-        ]);
+        Room::create($validatedData);
 
-        return redirect()->route('admin.rooms.index')->with('success', 'Room created successfully!');
+        return redirect()->route('admin.rooms.index')->with('success', 'Ruangan berhasil ditambahkan!');
     }
 
     public function show(Room $room)
@@ -45,30 +37,31 @@ class RoomController extends Controller
 
     public function edit(Room $room)
     {
-        $roomTypes = RoomType::all();
+        $roomTypes = RoomType::select('id', 'name')->get();
         return view('dashboard.admin.room.edit', compact('room', 'roomTypes'));
     }
 
     public function update(Request $request, Room $room)
     {
-        $validatedData = $request->validate([
-            'room_number'   => 'required|unique:rooms,room_number,' . $room->id . '|digits:3',
-            'room_type_id' => 'required|exists:room_types,id',
-            'occupancy' => 'required|in:Available,Occupied,Maintenance',
-        ]);
+        $validatedData = $request->validate($this->roomValidationRules($room->id));
 
-        $room->update([
-            'room_number' => $validatedData['room_number'],
-            'room_type_id' => $validatedData['room_type_id'],
-            'occupancy' => $validatedData['occupancy'],
-        ]);
+        $room->update($validatedData);
 
-        return redirect()->route('admin.rooms.index')->with('success', 'Room updated successfully!');
+        return redirect()->route('admin.rooms.index')->with('success', 'Ruangan berhasil diperbarui!');
     }
 
     public function destroy(Room $room)
     {
         $room->delete();
-        return redirect()->route('admin.rooms.index')->with('success', 'Room deleted successfully!');
+        return redirect()->route('admin.rooms.index')->with('success', 'Ruangan berhasil dihapus!');
+    }
+
+    private function roomValidationRules($id = null)
+    {
+        return [
+            'room_number'   => 'required|unique:rooms,room_number,' . $id . '|digits:3',
+            'room_type_id' => 'required|exists:room_types,id',
+            'occupancy' => 'required|in:Available,Occupied,Maintenance',
+        ];
     }
 }
