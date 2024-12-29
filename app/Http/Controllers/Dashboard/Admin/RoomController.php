@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = Room::with('roomType:id,name')->paginate(10);
+        $query = $request->input('search');
+
+        $rooms = Room::query();
+
+        if ($query){
+            $rooms->where('room_number', 'like', "%$query%")
+            ->orWhere('occupancy', 'like', "%$query%");
+        }
+
+        $rooms = $rooms->with('roomType:id,name')->paginate(10);
+
         return view('dashboard.admin.room.index', compact('rooms'));
     }
 

@@ -12,10 +12,20 @@ class HotelFacilityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $hotelFacilities = HotelFacility::paginate(10);
-        return view('dashboard.admin.hotelFacility.index', compact('hotelFacilities'));
+        $query = $request->input('search');
+
+        $hotelFacilities = HotelFacility::query();
+
+        if ($query) {
+        $hotelFacilities->where('name', 'like', "%$query%")
+            ->orWhere('description', 'like', "%$query%");
+    }
+
+    $hotelFacilities = $hotelFacilities->paginate(10);
+
+    return view('dashboard.admin.hotelFacility.index', compact('hotelFacilities', 'query'));
     }
 
     /**

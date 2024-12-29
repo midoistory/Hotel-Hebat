@@ -5,7 +5,8 @@ use App\Http\Controllers\Dashboard\Admin\{
     RoomController,
     RoomFacilityController,
     HotelFacilityController,
-    RoomTypeController
+    RoomTypeController,
+    AdminSearchController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +45,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     // Hotel Facility
     Route::resource('hotelfacility', HotelFacilityController::class);
+
+    Route::get('search', [AdminSearchController::class, 'search'])
+    ->name('search');
 });

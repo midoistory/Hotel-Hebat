@@ -97,8 +97,10 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <template x-if="isOpen">
-                            <ul x-transition
+                        <template div x-show="isOpen" x-transition:enter="transition ease-out duration-200"
+                            class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900">
+                            <ul x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                 class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900">
                                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                                     :class="{ 'text-purple-500': isActive('/admin/roomfacility') }">
@@ -111,14 +113,15 @@
                             </ul>
                         </template>
                     </li>
+
+                    <div class="px-6 my-6">
+                        <button
+                            class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                            View Website
+                        </button>
+                    </div>
                 </ul>
             </div>
-        </aside>
-
-        <!-- Mobile Sidebar -->
-        <aside class="z-20 fixed inset-0 flex items-start justify-start w-full bg-white dark:bg-gray-800 md:hidden"
-            id="sidebar-mobile" x-show="isMobileSidebarOpen" x-transition>
-            <!-- Konten Sidebar -->
         </aside>
 
         <div class="flex flex-col flex-1 w-full">
@@ -126,8 +129,8 @@
                 <div
                     class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
                     <!-- Search input -->
-                    <div class="flex justify-center flex-1 lg:mr-32">
-                        <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+                    <form action="{{ route('admin.search') }}" method="GET" class="flex justify-center flex-1">
+                        <div class="relative w-full max-w-xl focus-within:text-purple-500">
                             <div class="absolute inset-y-0 flex items-center pl-2">
                                 <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -137,11 +140,10 @@
                             </div>
                             <input
                                 class="w-full pl-8 pr-2 py-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                type="text" placeholder="Search for projects" aria-label="Search"
-                                x-data="{ isFocused: false }" @focus="isFocused = true" @blur="isFocused = false"
-                                :class="isFocused ? 'focus:ring-2 focus:ring-purple-500' : ''" />
+                                type="text" placeholder="Search everything..." aria-label="Search" name="search"
+                                value="{{ request('search') }}" />
                         </div>
-                    </div>
+                    </form>
 
                     <ul class="flex items-center flex-shrink-0 space-x-6">
                         <!-- Profile menu -->

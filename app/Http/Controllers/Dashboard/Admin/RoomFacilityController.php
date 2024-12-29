@@ -12,9 +12,23 @@ class RoomFacilityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roomFacilities = RoomFacility::with('roomType:id,name')->paginate(10);
+        $query = $request->input('search');
+
+        $roomFacilities = RoomFacility::query();
+
+        if ($query) {
+        $roomFacilities->where('kamar', 'like', "%$query%")
+            ->orWhere('perlengkapan_tidur', 'like', "%$query%")
+            ->orWhere('umum', 'like', "%$query%")
+            ->orWhere('makan', 'like', "%$query%")
+            ->orWhere('media', 'like', "%$query%")
+            ->orWhere('kamar_mandi', 'like', "%$query%");
+    }
+
+        $roomFacilities = $roomFacilities->with('roomType:id,name')->paginate(10);
+
         return view('dashboard.admin.roomFacility.index', compact('roomFacilities'));
     }
 
