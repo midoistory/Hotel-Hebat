@@ -1,12 +1,12 @@
 @extends('dashboard.admin.template')
 
-@section('title-web', 'Fasilitas Ruangan')
+@section('title-web', 'Fasilitas Hotel')
 
-@section('title-content', 'Data Fasilitas Ruangan')
+@section('title-content', 'Data Fasilitas Hotel')
 
 @section('btn-create')
     <div>
-        <a href="{{ route('admin.roomfacility.create') }}"
+        <a href="{{ route('admin.hotelfacility.create') }}"
             class="ml-auto flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
             <svg class="w-4 h-4 mr-2 -ml-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -36,28 +36,20 @@
         <thead>
             <tr
                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th class="px-4 py-3">Tipe Ruangan</th>
-                <th class="px-4 py-3">Fasilitas Kamar</th>
-                <th class="px-4 py-3">Fasilitas Umum</th>
+                <th class="px-4 py-3">Nama Fasilitas</th>
+                <th class="px-4 py-3">Deskripsi</th>
                 <th class="px-4 py-3">Actions</th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            @foreach ($roomFacilities as $roomFacility)
+            @foreach ($hotelFacilities as $hotelfacility)
                 <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                            <div>
-                                <p class="font-semibold">{{ $roomFacility->roomType->name }}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">{{ $roomFacility->kamar }}</td>
-                    <td class="px-4 py-3 text-sm">{{ $roomFacility->umum }}</td>
+                    <td class="px-4 py-3 text-sm">{{ $hotelfacility->name }}</td>
+                    <td class="px-4 py-3 text-sm">{{ $hotelfacility->description }}</td>
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
 
-                            <a href="{{ route('admin.roomfacility.edit', $roomFacility->id) }}"
+                            <a href="{{ route('admin.hotelfacility.edit', $hotelfacility->id) }}"
                                 class="flex items-center px-2 py-2 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Edit">
                                 <svg class="h-5 w-5 text-fuchsia-500" viewBox="0 0 24 24" stroke-width="2"
@@ -68,7 +60,7 @@
                                     <line x1="16" y1="5" x2="19" y2="8" />
                                 </svg>
                             </a>
-                            <a href="{{ route('admin.roomfacility.show', $roomFacility->id) }}"
+                            <a href="{{ route('admin.hotelfacility.show', $hotelfacility->id) }}"
                                 class="flex items-center px-2 py-2 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Delete">
                                 <svg class="h-6 w-6 text-fuchsia-500" width="24" height="24" viewBox="0 0 24 24"
@@ -80,7 +72,7 @@
                                     <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
                                 </svg>
                             </a>
-                            <form action="{{ route('admin.roomfacility.destroy', $roomFacility->id) }}" method="POST"
+                            <form action="{{ route('admin.hotelfacility.destroy', $hotelfacility->id) }}" method="POST"
                                 onsubmit="return confirm('Are you sure you want to delete this?');">
                                 @csrf
                                 @method('DELETE')
@@ -107,7 +99,8 @@
     <div
         class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
         <span class="flex items-center col-span-3">
-            Showing {{ $roomFacilities->firstItem() }}-{{ $roomFacilities->lastItem() }} of {{ $roomFacilities->total() }}
+            Showing {{ $hotelFacilities->firstItem() }}-{{ $hotelFacilities->lastItem() }} of
+            {{ $hotelFacilities->total() }}
         </span>
         <span class="col-span-2"></span>
         <!-- Pagination -->
@@ -116,7 +109,7 @@
                 <ul class="inline-flex items-center">
                     <!-- Previous Button -->
                     <li>
-                        <a href="{{ $roomFacilities->previousPageUrl() }}"
+                        <a href="{{ $hotelFacilities->previousPageUrl() }}"
                             class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                             aria-label="Previous">
                             <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
@@ -128,10 +121,10 @@
                     </li>
 
                     <!-- Page Numbers -->
-                    @for ($i = 1; $i <= $roomFacilities->lastPage(); $i++)
+                    @for ($i = 1; $i <= $hotelFacilities->lastPage(); $i++)
                         <li>
-                            <a href="{{ $roomFacilities->url($i) }}"
-                                class="px-3 py-1 {{ $i == $roomFacilities->currentPage() ? 'text-white bg-purple-600' : '' }} rounded-md focus:outline-none focus:shadow-outline-purple">
+                            <a href="{{ $hotelFacilities->url($i) }}"
+                                class="px-3 py-1 {{ $i == $hotelFacilities->currentPage() ? 'text-white bg-purple-600' : '' }} rounded-md focus:outline-none focus:shadow-outline-purple">
                                 {{ $i }}
                             </a>
                         </li>
@@ -139,7 +132,7 @@
 
                     <!-- Next Button -->
                     <li>
-                        <a href="{{ $roomFacilities->nextPageUrl() }}"
+                        <a href="{{ $hotelFacilities->nextPageUrl() }}"
                             class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
                             aria-label="Next">
                             <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">

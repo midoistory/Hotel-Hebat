@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Admin\{
     DashboardController,
     RoomController,
     RoomFacilityController,
+    HotelFacilityController,
     RoomTypeController
 };
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,7 @@ Route::get('/', function () {
 //     Route::get('/admin/dashboard', [AdminController::class, 'index']);
 // });
 
-Route::prefix('hotel-hebat/admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -41,6 +42,6 @@ Route::prefix('hotel-hebat/admin')->name('admin.')->group(function() {
     // Room Facility
     Route::resource('roomfacility', RoomFacilityController::class);
 
-    // // Hotel Facility
-    // Route::resource('hotelfacility', HotelFacilityController::class);
+    // Hotel Facility
+    Route::resource('hotelfacility', HotelFacilityController::class);
 });

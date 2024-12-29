@@ -27,9 +27,10 @@
                 readonly />
         </label>
 
-        <br><br><br>
-        <a href="{{ route('admin.rooms.index') }}"
-            class="mt-12 px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-400 hover:bg-gray-500 focus:outline-none focus:shadow-outline-gray">
-            Back
-        </a>
+        <div class="mt-6 flex justify-end">
+            <a href="{{ route('admin.rooms.index') }}"
+                class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-400 hover:bg-gray-500 focus:outline-none focus:shadow-outline-gray">
+                Back
+            </a>
+        </div>
     @endsection

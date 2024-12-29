@@ -60,7 +60,7 @@
                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
                                 </path>
                             </svg>
-                            <span class="ml-4">Room Type</span>
+                            <span class="ml-4">Tipe Ruangan</span>
                         </a>
                     </li>
 
@@ -73,7 +73,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
-                            <span class="ml-4">Room</span>
+                            <span class="ml-4">Ruangan</span>
                         </a>
                     </li>
 
@@ -89,7 +89,7 @@
                                         d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
                                     </path>
                                 </svg>
-                                <span class="ml-4">Facilities</span>
+                                <span class="ml-4">Fasilitas</span>
                             </span>
                             <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -102,12 +102,12 @@
                                 class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900">
                                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                                     :class="{ 'text-purple-500': isActive('/admin/roomfacility') }">
-                                    <a href="{{ route('admin.roomfacility.index') }}">Room Facility</a>
+                                    <a href="{{ route('admin.roomfacility.index') }}">Fasilitas Ruangan</a>
                                 </li>
-                                {{-- <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                                     :class="{ 'text-purple-500': isActive('/admin/hotelfacility') }">
-                                    <a href="{{ route('admin.hotelfacility.index') }}">Hotel Facility</a>
-                                </li> --}}
+                                    <a href="{{ route('admin.hotelfacility.index') }}">Fasilitas Hotel</a>
+                                </li>
                             </ul>
                         </template>
                     </li>

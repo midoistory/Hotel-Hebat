@@ -1,57 +1,38 @@
 @extends('dashboard.admin.template')
 
-@section('title-web', 'Ubah Tipe Ruangan')
+@section('title-web', 'Ubah Fasilitas Hotel')
 
-@section('title-content', 'Ubah Tipe Ruangan')
+@section('title-content', 'Ubah Fasilitas Hotel')
 
 @section('content')
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <form action="{{ route('admin.roomtype.update', $roomType->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.hotelfacility.update', $hotelFacility->id) }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Tipe Ruangan</span>
-                <input type="text" name="name"
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Nama Fasilitas</span>
+                <input type="text" name="name" value="{{ old('name', $hotelFacility->name) }}"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    value="{{ old('name', $roomType->name) }}" placeholder="Deluxe" required />
+                    placeholder="Kolam Renang" required />
                 @if ($errors->has('name'))
                     <p class="text-red-600 text-sm mt-1">{{ $errors->first('name') }}</p>
                 @endif
             </label>
 
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Luas Ruangan</span>
-                <input type="number" name="room_size"
-                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    value="{{ old('room_size', $roomType->room_size) }}" placeholder="30" required />
-                @if ($errors->has('room_size'))
-                    <p class="text-red-600 text-sm mt-1">{{ $errors->first('room_size') }}</p>
-                @endif
-            </label>
-
-            <div class="mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Harga</span>
-                <input type="number" name="price" step="0.01"
-                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    value="{{ old('price', $roomType->price) }}" required />
-                @if ($errors->has('price'))
-                    <p class="text-red-600 text-sm mt-1">{{ $errors->first('price') }}</p>
-                @endif
-            </div>
-
-            <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Deskripsi</span>
                 <textarea name="description"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    rows="4">{{ old('description', $roomType->description) }}</textarea>
+                    rows="4">{{ old('description', $hotelFacility->description) }}</textarea>
                 @if ($errors->has('description'))
                     <p class="text-red-600 text-sm mt-1">{{ $errors->first('description') }}</p>
                 @endif
             </label>
 
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Gambar Tipe Ruangan</span>
+                <span class="text-gray-700 dark:text-gray-400">Gambar Fasilitas Hotel</span>
                 <input type="file" name="image"
                     class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     onchange="previewImage(event)" />
@@ -61,8 +42,8 @@
             </label>
 
             <div class="mt-4" id="image-preview-container">
-                @if ($roomType->image)
-                    <img id="image-preview" src="{{ asset('storage/' . $roomType->image) }}" alt="Current Image"
+                @if ($hotelFacility->image)
+                    <img id="image-preview" src="{{ asset('storage/' . $hotelFacility->image) }}" alt="Current Image"
                         class="w-32 h-32 object-cover rounded-md">
                 @else
                     <img id="image-preview" src="" alt="Image Preview"
@@ -71,7 +52,7 @@
             </div>
 
             <div class="mt-6 flex justify-end">
-                <a href="{{ route('admin.roomtype.index') }}"
+                <a href="{{ route('admin.hotelfacility.index') }}"
                     class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-400 hover:bg-gray-500 focus:outline-none focus:shadow-outline-gray">
                     Cancel
                 </a>
@@ -83,7 +64,6 @@
             </div>
         </form>
     </div>
-
     <script>
         function previewImage(event) {
             const file = event.target.files[0];
