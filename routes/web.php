@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\Admin\{
     DashboardController,
     RoomController,
@@ -21,31 +22,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// // Admin
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/admin/dashboard', [AdminController::class, 'index']);
+// Route::get('/', function () {
+//     return view('welcome');
 // });
 
-Route::prefix('admin')->name('admin.')->group(function() {
-    // Dashboard
+Route::get('/login', function() {
+    return view('auth.login');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Room
     Route::resource('roomtype', RoomTypeController::class);
-
-    // Room
     Route::resource('rooms', RoomController::class);
-
-    // Room Facility
     Route::resource('roomfacility', RoomFacilityController::class);
-
-    // Hotel Facility
     Route::resource('hotelfacility', HotelFacilityController::class);
-
-    Route::get('search', [AdminSearchController::class, 'search'])
-    ->name('search');
+    Route::get('search', [AdminSearchController::class, 'search'])->name('search');
 });

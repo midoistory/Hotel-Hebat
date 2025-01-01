@@ -77,11 +77,48 @@
                         </a>
                     </li>
 
+                    <!-- Fasilitas Ruangan -->
+                    <li class="relative px-6 py-3"
+                        :class="{ 'bg-gray-100 dark:bg-gray-900': isActive('/admin/roomfacility') }">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="{{ route('admin.roomfacility.index') }}">
+                            <svg class="h-5 w-5" width="24" height="24" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <rect x="4" y="4" width="6" height="5" rx="2" />
+                                <rect x="4" y="13" width="6" height="7" rx="2" />
+                                <rect x="14" y="4" width="6" height="16" rx="2" />
+                            </svg>
+                            <span class="ml-4">Fasilitas Ruangan</span>
+                        </a>
+                    </li>
+
+                    <!-- Fasilitas Hotel -->
+                    <li class="relative px-6 py-3"
+                        :class="{ 'bg-gray-100 dark:bg-gray-900': isActive('/admin/hotelfacility') }">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="{{ route('admin.hotelfacility.index') }}">
+                            <svg class="h-5 w-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <line x1="3" y1="21" x2="21" y2="21" />
+                                <line x1="9" y1="8" x2="10" y2="8" />
+                                <line x1="9" y1="12" x2="10" y2="12" />
+                                <line x1="9" y1="16" x2="10" y2="16" />
+                                <line x1="14" y1="8" x2="15" y2="8" />
+                                <line x1="14" y1="12" x2="15" y2="12" />
+                                <line x1="14" y1="16" x2="15" y2="16" />
+                                <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16" />
+                            </svg>
+                            <span class="ml-4">Fasilitas Hotel</span>
+                        </a>
+                    </li>
+
                     <!-- Dropdown Facilities -->
-                    <li class="relative px-6 py-3" x-data="{ isOpen: false }">
-                        <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            @click="isOpen = !isOpen">
+                    {{-- <li class="relative px-6 py-3" x-data="{ isOpen: false }">
+                        <button @click="isOpen = !isOpen"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,11 +134,11 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <template div x-show="isOpen" x-transition:enter="transition ease-out duration-200"
+
+                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-200"
+                            x-transition:leave="transition ease-in duration-150"
                             class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900">
-                            <ul x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900">
+                            <ul>
                                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                                     :class="{ 'text-purple-500': isActive('/admin/roomfacility') }">
                                     <a href="{{ route('admin.roomfacility.index') }}">Fasilitas Ruangan</a>
@@ -111,8 +148,8 @@
                                     <a href="{{ route('admin.hotelfacility.index') }}">Fasilitas Hotel</a>
                                 </li>
                             </ul>
-                        </template>
-                    </li>
+                        </div>
+                    </li> --}}
 
                     <div class="px-6 my-6">
                         <button
@@ -164,17 +201,20 @@
                                     class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="#">
-                                            <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path
-                                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                                </path>
-                                            </svg>
-                                            <span>Log out</span>
-                                        </a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                                                <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path
+                                                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                                    </path>
+                                                </svg>
+                                                <span>Log out</span>
+                                            </button>
+                                        </form>
                                     </li>
                                 </ul>
                             </template>

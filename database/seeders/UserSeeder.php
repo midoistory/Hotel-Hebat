@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -13,25 +15,34 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name'  => 'Admin',
-            'email' => 'admin@hebat.com',
-            'password'  => bcrypt('admin'),
-            'role'  => 'admin',
-        ]);
+        DB::table('users')->insert([
+            [
+                'name' => 'Admin',
+                'email' => 'admin@hebat.com',
+                'password'  => Hash::make('admin'),
+                'role'  => 'admin',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
 
-        User::create([
-            'name'  => 'Resepsionis',
-            'email' => 'resepsionis@hebat.com',
-            'password'  => bcrypt('resepsionis'),
-            'role'  => 'resepsionis',
-        ]);
+            [
+                'name' => 'Resepsionis',
+                'email' => 'resepsionis@hebat.com',
+                'password'  => Hash::make('resepsionis'),
+                'role'  => 'resepsionis',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
 
-        User::create([
-            'name'  => 'Tamu',
-            'email' => 'tamu@gmail.com',
-            'password'  => bcrypt('tamu'),
-            'role'  => 'tamu',
+            [
+                'name' => 'Guest',
+                'email' => 'guest@hebat.com',
+                'password'  => Hash::make('guest'),
+                'role'  => 'guest',
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],
+
         ]);
     }
 }
