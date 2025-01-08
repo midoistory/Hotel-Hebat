@@ -90,7 +90,7 @@ class RoomTypeController extends Controller
     private function roomTypeValidationRules($id = null)
     {
         return [
-            'name' => 'required|string|max:255' . $id,
+            'name' => 'required|string|max:255|unique:room_types,name,' . $id,
             'room_size' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:255',

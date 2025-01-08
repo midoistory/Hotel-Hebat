@@ -1,117 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('landing.template')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hotel Hebat - Penginapan Sempurna Gampang Dipesan</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
-    <meta name="description" content="Free open source Tailwind CSS Store template">
-    <meta name="keywords"
-        content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+@section('btn-nav')
+    <a href="{{ route('login') }}"
+        class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">Login
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+    </a>
+@endsection
 
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
-
-    <style>
-        .work-sans {
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        #menu-toggle:checked+#menu {
-            display: block;
-        }
-
-        .hover\:grow {
-            transition: all 0.3s;
-            transform: scale(1);
-        }
-
-        .hover\:grow:hover {
-            transform: scale(1.02);
-        }
-
-        .carousel-open:checked+.carousel-item {
-            position: static;
-            opacity: 100;
-        }
-
-        .carousel-item {
-            -webkit-transition: opacity 0.6s ease-out;
-            transition: opacity 0.6s ease-out;
-        }
-
-        #carousel-1:checked~.control-1,
-        #carousel-2:checked~.control-2,
-        #carousel-3:checked~.control-3 {
-            display: block;
-        }
-
-        .carousel-indicators {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            position: absolute;
-            bottom: 2%;
-            left: 0;
-            right: 0;
-            text-align: center;
-            z-index: 10;
-        }
-
-        #carousel-1:checked~.control-1~.carousel-indicators li:nth-child(1) .carousel-bullet,
-        #carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
-        #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet {
-            color: #000;
-        }
-
-        section {
-            margin: 20px;
-        }
-    </style>
-
-</head>
-
-<body class="bg-white text-gray-500 work-sans leading-normal text-base tracking-normal">
-
-    <!--Nav-->
-    <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-black mb-4 md:mb-0">
-                <img src="{{ asset('img/favicon.png') }}" alt="" class="w-10 h-10">
-                <span class="ml-3 text-xl">HEBAT</span>
-            </a>
-            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-                <a href="#beranda" class="mr-5 hover:text-gray-500">Beranda</a>
-                <a href="#kamar" class="mr-5 hover:text-gray-500">Kamar</a>
-                <a href="#fasilitas" class="mr-5 hover:text-gray-500">Fasilitas</a>
-                <a href="#tentang" class="mr-5 hover:text-gray-500">Tentang</a>
-            </nav>
-            <button
-                class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
-                Pemesanan Saya
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-            </button>
-        </div>
-    </header>
-
+@section('content')
     {{-- Carousel --}}
     <div class="carousel relative container mx-auto" style="max-width:1600px;" id="beranda">
         <div class="carousel-inner relative overflow-hidden w-full">
             <!--Slide 1-->
-            <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true"
-                hidden="" checked="checked">
+            <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden=""
+                checked="checked">
             <div class="carousel-item absolute opacity-0" style="height:50vh;">
                 <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right"
                     style="background-image: url('img/hotel.jpg');">
                     <div class="container mx-auto">
-                        <div
-                            class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
+                        <div class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
                             <p class="text-black text-3xl my-4">Lokasi Strategis, Liburan Tanpa Repot</p>
                         </div>
                     </div>
@@ -123,14 +33,12 @@
                 class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
 
             <!--Slide 2-->
-            <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true"
-                hidden="">
+            <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
             <div class="carousel-item absolute opacity-0 bg-cover bg-right" style="height:50vh;">
                 <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right"
                     style="background-image: url('img/live-cooking.jpg');">
                     <div class="container mx-auto">
-                        <div
-                            class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
+                        <div class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
                             <p class="text-white text-3xl my-4">Saksikan Live Cooking Show di Hotel Kami!</p>
                         </div>
                     </div>
@@ -142,14 +50,12 @@
                 class="next control-2 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
 
             <!--Slide 3-->
-            <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true"
-                hidden="">
+            <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
             <div class="carousel-item absolute opacity-0" style="height:50vh;">
                 <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-bottom"
                     style="background-image: url('img/kids.jpg');">
                     <div class="container mx-auto">
-                        <div
-                            class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
+                        <div class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
                             <p class="text-white text-3xl my-4">Tersedia Kids' Playground, Tempat Main Anak yang Aman
                             </p>
                         </div>
@@ -202,8 +108,8 @@
                         placeholder="1">
                 </div>
                 <button
-                    class="text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded text-base">
-                    Cek Harga
+                    class="text-white bg-black border-0 py-3 px-10 focus:outline-none hover:bg-gray-600 rounded text-base">
+                    Pesan
                 </button>
             </div>
         </div>
@@ -212,26 +118,30 @@
     {{-- Kamar Dan Tarif --}}
     <section class="bg-white py-12" id="kamar">
         <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
-            <nav id="store" class="w-full z-30 top-0 px-6 py-1">
+            <div id="store" class="w-full z-30 top-0 px-6 py-1">
                 <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
                     <h1 class="text-black text-2xl my-4 mb-2 ">
                         Kamar dan Tarif
                     </h1>
                 </div>
-            </nav>
+            </div>
 
-            @foreach ($roomTypes as $roomType)
-                <div class="w-full md:w-1/3 xl:w-1/4 p-5 flex flex-col">
-                    <a href="#">
-                        <img class="hover:grow hover:shadow-lg rounded-lg" src="{{ $roomType->image }}">
+            @forelse ($roomTypes as $roomType)
+                <div class="w-full md:w-1/3 xl:w-1/4 p-8 flex flex-col ">
+                    <a href="{{ route('landing.room.show', $roomType->id) }}">
+                        <img src="{{ asset('storage/' . $roomType->image) }}" alt="Room Image" class="rounded-lg">
                         <div class="pt-3 flex items-center justify-between">
                             <p class="pt-2 text-gray-900">{{ $roomType->name }}</p>
                             <p class="pt-2 text-gray-900">Rp.{{ number_format($roomType->price, 0, ',', '.') }}</p>
                         </div>
-                        <p class="pt-2 text-gray-500">{{ $roomType->description }}</p>
+                        <p class="pt-2 text-gray-500">
+                            {{ \Illuminate\Support\Str::words($roomType->description, 10, '...') }}
+                        </p>
                     </a>
                 </div>
-            @endforeach
+            @empty
+                <p class="text-gray-500 flex mx-auto mt-0 px-2 py-3">Tidak ada tipe kamar tersedia.</p>
+            @endforelse
         </div>
     </section>
 
@@ -272,10 +182,8 @@
                         serta restoran berbintang, Hotel Hebat selalu memberikan pengalaman yang tak terlupakan bagi
                         setiap pengunjungnya.</p>
                     <div class="flex lg:flex-row md:flex-col">
-                        <a href="/"
-                            class="bg-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-800 focus:outline-none">
-                            <svg class="h-8 w-8 text-gray-200" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                        <div class="bg-black inline-flex py-3 px-5 rounded-lg items-center">
+                            <svg class="h-8 w-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
@@ -285,9 +193,9 @@
                                 <p class="leading-relaxed text-gray-200">Pusat Kota</p>
                                 <p class="leading-relaxed text-white">Karawang 4.3 km</p>
                             </span>
-                        </a>
-                        <a href="/"
-                            class="bg-black inline-flex py-3 px-5 rounded-lg items-center lg:ml-4 md:ml-0 ml-4 md:mt-4 mt-0 lg:mt-0 hover:bg-gray-800 focus:outline-none">
+                        </div>
+                        <div
+                            class="bg-black inline-flex py-3 px-5 rounded-lg items-center lg:ml-4 md:ml-0 ml-4 md:mt-4 mt-0 lg:mt-0">
                             <svg class="h-8 w-8 text-gray-200" width="24" height="24" viewBox="0 0 24 24"
                                 stroke-width="1.2" stroke="currentColor" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -301,71 +209,42 @@
                                 <p class="leading-relaxed text-white">Haliem Jakarta 32
                                     km</p>
                             </span>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
     </section>
 
     {{-- Fasilitas Hotel --}}
-    <section class="text-gray-600 body-font" id="fasilitas">
-        <div class="container px-5 py-20 mx-auto flex flex-wrap">
-            <div class="flex w-full mb-8 flex-wrap">
-                <h1 class="text-black text-2xl my-4 mb-2">Fasilitas Umum Hotel</h1>
-            </div>
-            <div class="flex flex-wrap -m-4">
-                @foreach ($hotelFacilities as $hotelFacility)
-                    <div class="lg:w-1/3 sm:w-1/2 p-2">
-                        <div class="flex relative">
-                            <img alt="gallery"
-                                class="absolute inset-0 w-full h-full object-cover object-center rounded-md"
-                                src="{{ $hotelFacility->image }}">
-                            <div
-                                class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
-                                <h1 class="title-font text-lg font-medium text-gray-900 mb-3">
-                                    {{ $hotelFacility->name }}</h1>
-                                <p class="leading-relaxed">{{ $hotelFacility->description }}</p>
+    <section class="bg-white py-12" id="fasilitas">
+        <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+            <div id="store" class="w-full z-30 top-0 px-6 py-1">
+                <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+                    <h1 class="text-black text-2xl">
+                        Fasilitas Hotel
+                    </h1>
+                </div>
+                <div class="flex flex-wrap -m-4 p-4">
+                    @forelse ($hotelFacilities as $hotelFacility)
+                        <div class="lg:w-1/3 sm:w-1/2 p-2">
+                            <div class="flex relative">
+                                <img alt="gallery"
+                                    class="absolute inset-0 w-full h-full object-cover object-center rounded-lg border-2 border-gray-200"
+                                    src="{{ asset('storage/' . $hotelFacility->image) }}"
+                                    alt="Gambar Fasilitas">
+                                <div
+                                    class="px-8 py-20 rounded-lg relative z-10 w-full border-2 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                                    <p class="leading-relaxed">{{ $hotelFacility->description }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @empty
+                </div>
+                <p class="text-gray-500 text-center items-center justify-center">Tidak ada fasilitas hotel
+                    tersedia.</p>
+                @endforelse
             </div>
+
         </div>
     </section>
-
-    {{-- Footer --}}
-    <hr>
-    <footer class="text-gray-600 body-font">
-        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-                <img src="{{ asset('img/favicon.png') }}" class="w-10 h-10" alt="">
-                <span class="ml-3 text-xl">HEBAT</span>
-            </a>
-            <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">©
-                2024 Hotel Hebat —
-                <a href="https://www.instagram.com/midoistory/" class="text-gray-600 ml-1" rel="noopener noreferrer"
-                    target="_blank">@midoistory</a>
-            </p>
-            <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-                <a class="ml-3 text-gray-500" href="https://www.instagram.com/midoistory/">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-                    </svg>
-                </a>
-                <a class="ml-3 text-gray-500" href="https://www.linkedin.com/in/midori-harahap-059569280/">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                        <rect x="2" y="9" width="4" height="12" />
-                        <circle cx="4" cy="4" r="2" />
-                    </svg>
-                </a>
-            </span>
-        </div>
-    </footer>
-
-</body>
-
-</html>
+@endsection

@@ -28,23 +28,36 @@
 
             @php
                 $facilities = [
-                    ['name' => 'kamar', 'label' => 'Fasilitas Ruangan', 'placeholder' => 'AC, WiFi, Shower'],
-                    ['name' => 'umum', 'label' => 'Fasilitas Umum', 'placeholder' => 'WiFi, Brankas, Lemari pakaian'],
+                    [
+                        'name' => 'kamar',
+                        'label' => 'Fasilitas Ruangan',
+                        'placeholder' => 'Pendingin ruangan, Pemanasan, Bebas rokok',
+                    ],
+                    [
+                        'name' => 'umum',
+                        'label' => 'Fasilitas Umum',
+                        'placeholder' => 'Wifi, Brankas, Sandal, Meja kerja, Tempat sampah',
+                    ],
                     [
                         'name' => 'makan',
                         'label' => 'Fasilitas Makan',
-                        'placeholder' => 'Pembuat kopi/teh, Kulkas, Air botol',
+                        'placeholder' => 'Mini-bar, Pembuat kopi/teh, Barang pecah belah, Air botol',
                     ],
                     [
                         'name' => 'media',
                         'label' => 'Fasilitas Media',
-                        'placeholder' => 'TV layar datar, Adaptor AC/DC universal',
+                        'placeholder' => 'Televisi, Telepon, Adaptor AC/DC universal',
                     ],
-                    ['name' => 'perlengkapan_tidur', 'label' => 'Perlengkapan Tidur', 'placeholder' => 'Linen, Sofa'],
+                    [
+                        'name' => 'perlengkapan_tidur',
+                        'label' => 'Perlengkapan Tidur',
+                        'placeholder' => 'Bantal non bulu, Linen, Sofa',
+                    ],
                     [
                         'name' => 'kamar_mandi',
                         'label' => 'Fasilitas Kamar Mandi',
-                        'placeholder' => 'Handuk, Pengering, Sikat gigi',
+                        'placeholder' =>
+                            'Shower, Pengering rambut, Jubah mandi, Handuk',
                     ],
                 ];
             @endphp
