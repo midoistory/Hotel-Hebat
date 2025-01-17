@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('landing.home');
 Route::get('/room/{id}', [HomeController::class, 'show'])->name('landing.room.show');
+Route::post('/check-availability', [HomeController::class, 'checkAvailability'])->name('check-availability');
+Route::post('/book-room', [HomeController::class, 'bookRoom']);
+Route::get('/form-reservation/{id}', [HomeController::class, 'formReservation'])->name('landing.form-reservation');
 
 Route::get('/login', function() {
     return view('auth.login');

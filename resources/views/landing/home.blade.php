@@ -87,33 +87,75 @@
     </div>
 
     {{-- Hero --}}
-    <section class="text-gray-600 body-font">
+    {{-- <section class="text-gray-600 body-font">
         <div class="container px-5 py-12 mx-auto">
             <div
                 class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
                 <div class="relative flex-grow w-full">
-                    <label for="check-in" class="leading-7 text-sm text-gray-600">Check-In</label>
-                    <input type="date" id="check-in" name="check-in"
+                    <label for="checkIn" class="leading-7 text-sm text-gray-600">Check In</label>
+                    <input type="date" id="checkIn" name="checkIn"
                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                 </div>
                 <div class="relative flex-grow w-full">
-                    <label for="check-out" class="leading-7 text-sm text-gray-600">Check-Out</label>
-                    <input type="date" id="check-out" name="check-out"
+                    <label for="checkOut" class="leading-7 text-sm text-gray-600">Check Out</label>
+                    <input type="date" id="checkOut" name="checkOut"
                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                 </div>
                 <div class="relative flex-grow w-full">
-                    <label for="jumlah-kamar" class="leading-7 text-sm text-gray-600">Jumlah Kamar</label>
-                    <input type="number" id="jumlah-kamar" name="jumlah-kamar"
-                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        placeholder="1">
+                    <label for="jumlahKamar" class="leading-7 text-sm text-gray-600">Jumlah Kamar</label>
+                    <input type="number" id="jumlahKamar" name="jumlahKamar"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                 </div>
-                <button
+                <button id="checkAvailability"
                     class="text-white bg-black border-0 py-3 px-10 focus:outline-none hover:bg-gray-600 rounded text-base">
                     Pesan
                 </button>
             </div>
         </div>
+        <div id="availabilityMessage" class="mt-4 text-center"></div>
     </section>
+
+    <script>
+        document.getElementById('checkAvailability').addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            const checkIn = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            const jumlahKamar = document.getElementById('jumlahKamar').value;
+
+            try {
+                const response = await fetch("{{ route('check-availability') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        checkIn,
+                        checkOut,
+                        jumlahKamar
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('availabilityMessage').innerHTML = `
+                    <p class="text-green-500 font-bold">${data.message}</p>
+                    <ul class="list-disc list-inside text-gray-700">
+                        ${data.roomTypes.map(room => `<li>${room}</li>`).join('')}
+                    </ul>`;
+                } else {
+                    document.getElementById('availabilityMessage').innerHTML =
+                        `<p class="text-red-500 font-bold">${data.message}</p>`;
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('availabilityMessage').innerHTML =
+                    `<p class="text-red-500 font-bold">Terjadi kesalahan. Coba lagi nanti.</p>`;
+            }
+        });
+    </script> --}}
 
     {{-- Kamar Dan Tarif --}}
     <section class="bg-white py-12" id="kamar">
@@ -134,8 +176,8 @@
                             <p class="pt-2 text-gray-900">{{ $roomType->name }}</p>
                             <p class="pt-2 text-gray-900">Rp.{{ number_format($roomType->price, 0, ',', '.') }}</p>
                         </div>
-                        <p class="pt-2 text-gray-500">
-                            {{ \Illuminate\Support\Str::words($roomType->description, 10, '...') }}
+                        <p class="leading-7 text-sm text-gray-500 pt-2">
+                            {{ \Illuminate\Support\Str::words($roomType->description, 8, '...') }}
                         </p>
                     </a>
                 </div>
@@ -230,8 +272,7 @@
                             <div class="flex relative">
                                 <img alt="gallery"
                                     class="absolute inset-0 w-full h-full object-cover object-center rounded-lg border-2 border-gray-200"
-                                    src="{{ asset('storage/' . $hotelFacility->image) }}"
-                                    alt="Gambar Fasilitas">
+                                    src="{{ asset('storage/' . $hotelFacility->image) }}" alt="Gambar Fasilitas">
                                 <div
                                     class="px-8 py-20 rounded-lg relative z-10 w-full border-2 border-gray-200 bg-white opacity-0 hover:opacity-100">
                                     <p class="leading-relaxed">{{ $hotelFacility->description }}</p>
@@ -244,7 +285,6 @@
                     tersedia.</p>
                 @endforelse
             </div>
-
         </div>
     </section>
 @endsection
