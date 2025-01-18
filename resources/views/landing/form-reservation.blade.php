@@ -72,6 +72,13 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="room_type_id" class="block mb-2 text-gray-900 dark:text-white">Tipe
+                                Kamar</label>
+                            <input type="hidden" id="room_type_id" value="{{ $roomType->name }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+
+                        <div class="mb-4">
                             <label for="jumlahKamar" class="block mb-2 text-gray-900 dark:text-white">Jumlah
                                 Kamar</label>
                             <input type="number" id="jumlahKamar"

@@ -50,8 +50,10 @@
                             <div class="flex">
                                 <span class="text-black text-2xl">Rp.
                                     {{ number_format($roomType->price, 0, ',', '.') }}</span>
-                                <a href="{{ route('landing.form-reservation', $roomType->id) }}"
-                                    class="flex ml-auto text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded text-base">Pesan</a>
+                                <a href="{{ route('landing.form-reservation', ['id' => $roomType->id]) }}"
+                                    class="flex ml-auto text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded text-base">
+                                    Pesan
+                                </a>
                             </div>
                         </div>
                         <div class="flex flex-col md:w-1/2 md:pl-12">

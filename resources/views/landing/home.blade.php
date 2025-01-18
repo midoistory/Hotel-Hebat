@@ -87,7 +87,7 @@
     </div>
 
     {{-- Hero --}}
-    {{-- <section class="text-gray-600 body-font">
+    <section class="text-gray-600 body-font">
         <div class="container px-5 py-12 mx-auto">
             <div
                 class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
@@ -106,56 +106,13 @@
                     <input type="number" id="jumlahKamar" name="jumlahKamar"
                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                 </div>
-                <button id="checkAvailability"
+                <a href="#kamar"
                     class="text-white bg-black border-0 py-3 px-10 focus:outline-none hover:bg-gray-600 rounded text-base">
                     Pesan
-                </button>
+                </a>
             </div>
         </div>
-        <div id="availabilityMessage" class="mt-4 text-center"></div>
     </section>
-
-    <script>
-        document.getElementById('checkAvailability').addEventListener('click', async function(e) {
-            e.preventDefault();
-
-            const checkIn = document.getElementById('checkIn').value;
-            const checkOut = document.getElementById('checkOut').value;
-            const jumlahKamar = document.getElementById('jumlahKamar').value;
-
-            try {
-                const response = await fetch("{{ route('check-availability') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        checkIn,
-                        checkOut,
-                        jumlahKamar
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    document.getElementById('availabilityMessage').innerHTML = `
-                    <p class="text-green-500 font-bold">${data.message}</p>
-                    <ul class="list-disc list-inside text-gray-700">
-                        ${data.roomTypes.map(room => `<li>${room}</li>`).join('')}
-                    </ul>`;
-                } else {
-                    document.getElementById('availabilityMessage').innerHTML =
-                        `<p class="text-red-500 font-bold">${data.message}</p>`;
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                document.getElementById('availabilityMessage').innerHTML =
-                    `<p class="text-red-500 font-bold">Terjadi kesalahan. Coba lagi nanti.</p>`;
-            }
-        });
-    </script> --}}
 
     {{-- Kamar Dan Tarif --}}
     <section class="bg-white py-12" id="kamar">
@@ -179,6 +136,11 @@
                         <p class="leading-7 text-sm text-gray-500 pt-2">
                             {{ \Illuminate\Support\Str::words($roomType->description, 8, '...') }}
                         </p>
+
+                        @if ($roomType->rooms_count >= 1)
+                            <p class="leading-7 text-sm text-green-500 pt-2">Tersedia: {{ $roomType->rooms_count }} kamar
+                            </p>
+                        @endif
                     </a>
                 </div>
             @empty
