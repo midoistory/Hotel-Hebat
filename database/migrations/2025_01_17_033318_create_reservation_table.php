@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->date('checkIn');
-            $table->date('checkOut');
+            $table->date('check_in');
+            $table->date('check_out');
             $table->foreignId('room_type_id')->constrained('room_types')->onDelete('cascade');
             $table->integer('jumlah_kamar');
-            $table->enum('payment_method', ['Transfer Bank', 'Ovo', 'Gopay']);
+            $table->decimal('total_price', 15, 2);
+            $table->enum('payment_method', ['Ovo', 'Gopay']);
             $table->string('image');
             $table->string('notes')->nullable();
             $table->timestamps();

@@ -42,14 +42,14 @@
                             <h1 class="text-black text-2xl mb-6">{{ $roomType->name }}</h1>
                             <p class="leading-relaxed text-base mb-4">{{ $roomType->description }}</p>
                             <div class="flex items-center mb-6">
-                                <span class="mr-3">Size</span>
+                                <span class="mr-3">Ukuran</span>
                                 <div class="rounded border border-gray-300 py-2 text-base pl-3 pr-3">
                                     <p>{{ number_format($roomType->room_size, 0, ',', '.') }} m²</p>
                                 </div>
                             </div>
                             <div class="flex">
                                 <span class="text-black text-2xl">Rp.
-                                    {{ number_format($roomType->price, 0, ',', '.') }}</span>
+                                    {{ number_format($roomType->price, 0, ',', '.') }} <span class="leading-relaxed text-base text-gray-600">/malam</span></span>
                                 <a href="{{ route('landing.form-reservation', ['id' => $roomType->id]) }}"
                                     class="flex ml-auto text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded text-base">
                                     Pesan

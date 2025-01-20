@@ -11,7 +11,9 @@ use App\Http\Controllers\Dashboard\Admin\{
 };
 use App\Http\Controllers\Landing\{
     HomeController,
+    ReservationController,
 };
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +29,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('landing.home');
 Route::get('/room/{id}', [HomeController::class, 'show'])->name('landing.room.show');
-Route::post('/check-availability', [HomeController::class, 'checkAvailability'])->name('check-availability');
-Route::post('/book-room', [HomeController::class, 'bookRoom']);
+
 Route::get('/form-reservation/{id}', [HomeController::class, 'formReservation'])->name('landing.form-reservation');
+Route::get('/resevation/create', [ReservationController::class, 'create'])->name('reservation.create');
+Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
+
 
 Route::get('/login', function() {
     return view('auth.login');
