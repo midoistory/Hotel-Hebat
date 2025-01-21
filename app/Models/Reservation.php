@@ -10,8 +10,11 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'check_in', 'check_out', 'jumlah_kamar', 'payment_method', 'image', 'notes', 'room_type_id'
+        'room_type_id', 'check_in', 'check_out', 'jumlah_kamar',
+        'total_price', 'name', 'email', 'phone', 'payment_method',
+        'image', 'notes'
     ];
+
 
     public function roomType()
     {

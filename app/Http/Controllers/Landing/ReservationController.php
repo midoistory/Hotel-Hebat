@@ -14,47 +14,43 @@ class ReservationController extends Controller
     public function showReservationForm(Request $request)
     {
         $roomType = RoomType::find($request->room_type_id);
-        return view('landing.form-reservation', compact('roomType'));
-    }
 
-    public function create()
-    {
-        $roomType = RoomType::findOrFail(request('room_type_id'));
         return view('landing.form-reservation', compact('roomType'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validatedData = $request->validate($this->reservationValidationRules());
+
+        $imagePath = $request->hasFile('image')
+            ? $request->file('image')->store('reservations', 'public')
+            : null;
+
+        $roomType = RoomType::findOrFail($validatedData['room_type_id']);
+
+        $days = Carbon::parse($validatedData['check_in'])->diffInDays(Carbon::parse($validatedData['check_out']));
+        $totalPrice = $roomType->price * $days * $validatedData['jumlah_kamar'];
+
+        Reservation::create(array_merge($validatedData, [
+            'image' => $imagePath,
+            'total_price' => $totalPrice,
+        ]));
+
+        return redirect()->route('landing.home')->with('success', 'Reservasi berhasil dibuat.');
+    }
+
+    private function reservationValidationRules()
+    {
+        return [
+            'room_type_id' => 'required|exists:room_types,id',
             'check_in' => 'required|date|after_or_equal:today',
             'check_out' => 'required|date|after:check_in',
-            'room_type_id' => 'required|exists:room_types,id',
             'jumlah_kamar' => 'required|integer|min:1',
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|string',
-            'payment_method' => 'required|in:Ovo,Gopay',
-        ]);
-
-        $roomType = RoomType::findOrFail($validated['room_type_id']);
-        $days = Carbon::parse($validated['check_in'])->diffInDays(Carbon::parse($validated['check_out']));
-        $totalPrice = $roomType->price * $days * $validated ['jumlah_kamar'];
-
-        Reservation::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'phone' => $validated['phone'],
-        'check_in' => $validated['check_in'],
-        'check_out' => $validated['check_out'],
-        'room_type_id' => $validated['room_type_id'],
-        'jumlah_kamar' => $validated['jumlah_kamar'],
-        'total_price' => $totalPrice,
-        'payment_method' => $validated['payment_method'],
-        'image' => $request->file('image')->store('reservations'),
-        'notes' => $request->input('notes', null),
-        'status' => 'Pending',
-    ]);
-
-    return response()->json(['message' => 'Reservasi anda berhasil dibuat!'], 201);
+            'payment_method' => 'required|in:ovo,gopay',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
     }
 }

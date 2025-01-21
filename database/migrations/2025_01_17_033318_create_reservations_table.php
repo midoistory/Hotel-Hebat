@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservation', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_type_id')->constrained('room_types')->onDelete('cascade');
+            $table->date('check_in');
+            $table->date('check_out');
+            $table->integer('jumlah_kamar');
+            $table->decimal('total_price', 10, 2);
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->date('check_in');
-            $table->date('check_out');
-            $table->foreignId('room_type_id')->constrained('room_types')->onDelete('cascade');
-            $table->integer('jumlah_kamar');
-            $table->decimal('total_price', 15, 2);
-            $table->enum('payment_method', ['Ovo', 'Gopay']);
+            $table->enum('payment_method', ['ovo', 'gopay']);
             $table->string('image');
             $table->string('notes')->nullable();
             $table->timestamps();
@@ -31,8 +31,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('reservation');
+        Schema::dropIfExists('reservations');
     }
 };
