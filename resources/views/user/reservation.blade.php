@@ -34,41 +34,58 @@
                 <div class="bg-white border border-gray-200 rounded-lg shadow p-6 mb-8">
                     <h5 class="text-2xl mb-4 text-gray-800">Pesanan Anda</h5>
                     <table class="w-full text-sm text-gray-600 mb-8 border-collapse">
-                        <thead class="border border-gray-400 text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                        <thead
+                            class="border border-gray-400 text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3 border border-gray-400" colspan="5">
+                                <th scope="col" class="px-6 py-3 border border-gray-400" colspan="6">
                                     Detail Pesanan
                                 </th>
-                                <th scope="col" class="px-6 py-3 border border-gray-400" colspan="5">
-                                    Detail Tamu
+                                <th scope="col" class="px-6 py-3 border border-gray-400" colspan="2">
+                                    Aksi
                                 </th>
                             </tr>
                         </thead>
-                        <thead class="border border-gray-400 text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-800 dark:text-gray-300">
+                        <thead
+                            class="border border-gray-400 text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-800 dark:text-gray-300">
                             <tr>
-                                <th class="px-6 py-3 border border-gray-400">Tipe Kamar</th>
+                                <th class="px-6 py-3 border border-gray-400">Nama Tamu</th>
                                 <th class="px-6 py-3 border border-gray-400">Check In</th>
                                 <th class="px-6 py-3 border border-gray-400">Check Out</th>
+                                <th class="px-6 py-3 border border-gray-400">Tipe Kamar</th>
                                 <th class="px-6 py-3 border border-gray-400">Jumlah</th>
                                 <th class="px-6 py-3 border border-gray-400">Harga</th>
-                                <th class="px-6 py-3 border border-gray-400">Nama</th>
-                                <th class="px-6 py-3 border border-gray-400">Telepon</th>
                                 <th class="px-6 py-3 border border-gray-400">Status</th>
+                                <th class="px-6 py-3 border border-gray-400">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($reservations as $reservation)
                                 <tr
-                                    class="border border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td class="px-6 py-4 border border-gray-400">{{ $reservation->roomType->name }}</td>
+                                    class="border border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <td class="px-6 py-4 border border-gray-400">{{ $reservation->name }}</td>
                                     <td class="px-6 py-4 border border-gray-400">{{ $reservation->check_in }}</td>
                                     <td class="px-6 py-4 border border-gray-400">{{ $reservation->check_out }}</td>
+                                    <td class="px-6 py-4 border border-gray-400">{{ $reservation->roomType->name }}</td>
                                     <td class="px-6 py-4 border border-gray-400">{{ $reservation->jumlah_kamar }}</td>
-                                    <td class="px-6 py-4 border border-gray-400">Rp {{ number_format($reservation->total_price, 0, ',', '.') }}
+                                    <td class="px-6 py-4 border border-gray-400">Rp
+                                        {{ number_format($reservation->total_price, 0, ',', '.') }}
                                     </td>
-                                    <td class="px-6 py-4 border border-gray-400">{{ $reservation->name }}</td>
-                                    <td class="px-6 py-4 border border-gray-400">{{ $reservation->phone }}</td>
-                                    <td class="px-6 py-4 border border-gray-400">{{ $reservation->status ?? 'Belum Diproses' }}</td>
+                                    <td class="px-6 py-4 border border-gray-400">
+                                        {{ $reservation->status ?? 'Belum Diproses' }}</td>
+                                    <td class="flex px-6 py-4 border">
+                                        <a href="{{ route('user.reservation-details', $reservation->id) }}"
+                                            class="flex items-center px-2 py-2 bg-blue-500 text-white rounded-lg focus:outline-none focus:shadow-outline-blue hover:bg-blue-700">
+                                            <svg class="h-6 w-6 text-white" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <path
+                                                    d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                                <rect x="7" y="13" width="10" height="8" rx="2" />
+                                            </svg>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\landing;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\RoomType;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -60,5 +61,15 @@ class ReservationController extends Controller
         $reservations = Reservation::where('user_id', auth()->id())->get();
 
         return view('user.reservation', compact('reservations'));
+    }
+
+    public function userReservationDetail($id)
+    {
+        $users = User::findOrFail(auth()->id());
+        $reservations = Reservation::where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+        return view('user.reservation-details', compact('reservations', 'users'));
     }
 }

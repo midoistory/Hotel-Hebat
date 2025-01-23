@@ -36,6 +36,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/resevation/create', [ReservationController::class, 'create'])->name('reservation.create');
     Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
     Route::get('/user/reservation', [ReservationController::class, 'userReservation'])->name('user.reservation');
+    Route::get('/user/reservation/{id}', [ReservationController::class, 'userReservationDetail'])->name('user.reservation-details');
 });
 
 // Authentication routes
