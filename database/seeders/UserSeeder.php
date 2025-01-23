@@ -35,10 +35,10 @@ class UserSeeder extends Seeder
             ],
 
             [
-                'name' => 'Guest',
-                'email' => 'guest@hebat.com',
-                'password'  => Hash::make('guest'),
-                'role'  => 'guest',
+                'name' => 'user',
+                'email' => 'user@gmail.com',
+                'password'  => Hash::make('user'),
+                'role'  => 'user',
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ],

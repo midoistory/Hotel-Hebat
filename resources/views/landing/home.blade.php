@@ -1,14 +1,115 @@
 @extends('landing.template')
 
 @section('btn-nav')
-    <a href="{{ route('login') }}"
-        class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">Login
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-    </a>
+    @guest
+        <!-- Jika belum login -->
+        <a href="{{ route('login') }}"
+            class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
+            Login
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+        </a>
+    @else
+        @if (Auth::user()->role === 'admin')
+            {{-- Jika login sebagai admin --}}
+            <a
+                href="{{ route('admin.dashboard') }}"class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
+                Dashboard
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        @elseif (Auth::user()->role === 'user')
+            {{-- Jika login sebagai user --}}
+            <a href="{{ route('user.reservation') }}"
+                class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
+                Pesanan Saya
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        @elseif (Auth::user()->role === 'resepsionis')
+            {{-- Jika login sebagai resepsionis --}}
+            <a href="{{ route('resepsionis.dashboard') }}"
+                class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
+                Dashboard
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        @endif
+    @endguest
 @endsection
+
+@if (session('success'))
+    <div id="toast-message-cta"
+        class="fixed bottom-4 right-4 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400"
+        role="alert">
+        <div class="flex">
+            <div class="ms-3 text-sm">
+                <div class="mb-2 text-sm">{{ session('success') }}
+                </div>
+                <a href="{{ route('user.reservation') }}"
+                    class="inline-flex px-2.5 py-1.5 text-xs text-center text-white bg-black rounded-lg hover:bg-gray-900">Lihat
+                    Pesanan</a>
+            </div>
+            <button type="button"
+                class="ms-auto -mx-1.5 -my-1.5 bg-white justify-center items-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                data-dismiss-target="#toast-message-cta" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    </div>
+@endif
+
+<style>
+    #toast-message-cta {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 9999;
+        animation: slideIn 0.3s ease-in-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toast = document.querySelector('#toast-message-cta');
+        const closeButton = toast?.querySelector('[data-dismiss-target]');
+
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                toast.remove();
+            });
+        }
+
+        setTimeout(() => {
+            toast?.remove();
+        }, 20000);
+    });
+</script>
 
 @section('content')
     {{-- Carousel --}}
@@ -55,7 +156,8 @@
                 <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-bottom"
                     style="background-image: url('img/kids.jpg');">
                     <div class="container mx-auto">
-                        <div class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
+                        <div
+                            class="flex flex-col w-full lg:w-1/3 md:ml-16 items-center md:items-start px-12 tracking-wide">
                             <p class="text-white text-3xl my-4">Tersedia Kids' Playground, Tempat Main Anak yang Aman
                             </p>
                         </div>

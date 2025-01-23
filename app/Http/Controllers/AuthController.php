@@ -9,28 +9,38 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard');
+
+            $role = Auth::user()->role;
+            if ($role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($role === 'resepsionis') {
+                return redirect()->route('resepsionis.dashboard');
+            } elseif ($role === 'user') {
+                return redirect()->route('landing.home');
+            }
+
+            return redirect()->route('landing.home');
         }
 
         return back()->withErrors([
-            'email' => 'Wrong email or password',
+            'email' => 'Email atau password salah.',
         ]);
-
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect()->route('landing.home')->with('success', 'Berhasil logout.');
     }
 }

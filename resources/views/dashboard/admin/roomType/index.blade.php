@@ -50,7 +50,7 @@
                             <div>
                                 <p class="font-semibold">{{ $roomType->name }}</p>
                                 <p class="text-xs text-gray-600 dark:text-gray-400">
-                                    Size: {{ number_format($roomType->room_size) }} m²
+                                    Ukuran: {{ number_format($roomType->room_size) }} m²
                                 </p>
                             </div>
                         </div>

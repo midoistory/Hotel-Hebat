@@ -34,9 +34,10 @@ class ReservationController extends Controller
         Reservation::create(array_merge($validatedData, [
             'image' => $imagePath,
             'total_price' => $totalPrice,
+            'user_id'   => auth()->id(),
         ]));
 
-        return redirect()->route('landing.home')->with('success', 'Reservasi berhasil dibuat.');
+        return redirect()->route('landing.home')->with('success', 'Reservasi berhasil dibuat! Lihat pesanan Anda.');
     }
 
     private function reservationValidationRules()
@@ -52,5 +53,12 @@ class ReservationController extends Controller
             'payment_method' => 'required|in:ovo,gopay',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
+    }
+
+    public function userReservation(Request $request)
+    {
+        $reservations = Reservation::where('user_id', auth()->id())->get();
+
+        return view('user.reservation', compact('reservations'));
     }
 }
