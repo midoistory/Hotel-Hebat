@@ -12,11 +12,19 @@
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
 
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300..900&display=swap" rel="stylesheet">
 
+
+    <style>
+        .red-hat {
+            font-family: "Red Hat Display", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 </head>
 
-<body class="bg-white text-gray-500 work-sans">
+<body class="bg-white text-gray-500 red-hat">
     <section class="text-gray-600 body-font">
         <div class="container px-5 mx-auto">
             <div class="flex justify-end items-center mb-6">
@@ -35,13 +43,13 @@
                     <h5 class="text-2xl mb-4 text-gray-800">Pesanan Anda</h5>
                     <table class="w-full text-sm text-gray-600 mb-8 border-collapse">
                         <thead
-                            class="border border-gray-400 text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                            class="border border-gray-400 text-sm text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3 border border-gray-400" colspan="6">
                                     Detail Pesanan
                                 </th>
                                 <th scope="col" class="px-6 py-3 border border-gray-400" colspan="2">
-                                    Aksi
+                                    Keterangan
                                 </th>
                             </tr>
                         </thead>
@@ -61,7 +69,7 @@
                         <tbody>
                             @foreach ($reservations as $reservation)
                                 <tr
-                                    class="border border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    class="border border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-xs">
                                     <td class="px-6 py-4 border border-gray-400">{{ $reservation->name }}</td>
                                     <td class="px-6 py-4 border border-gray-400">{{ $reservation->check_in }}</td>
                                     <td class="px-6 py-4 border border-gray-400">{{ $reservation->check_out }}</td>
@@ -74,7 +82,7 @@
                                         {{ $reservation->status ?? 'Belum Diproses' }}</td>
                                     <td class="flex px-6 py-4 border">
                                         <a href="{{ route('user.reservation-details', $reservation->id) }}"
-                                            class="flex items-center px-2 py-2 bg-blue-500 text-white rounded-lg focus:outline-none focus:shadow-outline-blue hover:bg-blue-700">
+                                            class="flex items-center px-2 py-2 bg-black text-white rounded-lg focus:outline-none focus:shadow-outline-gray hover:bg-gray-700">
                                             <svg class="h-6 w-6 text-white" width="24" height="24"
                                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -96,7 +104,7 @@
                     <h5 class="text-xl mb-4 text-gray-800">Belum ada pesanan</h5>
                     <p class="text-gray-600">Silakan melakukan reservasi terlebih dahulu.</p>
                     <a href="{{ route('landing.home') }}"
-                        class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        class="mt-4 inline-block px-4 py-2 bg-black text-white rounded hover:bg-gray-700">
                         Buat Reservasi
                     </a>
                 </div>

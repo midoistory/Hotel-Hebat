@@ -12,12 +12,16 @@
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
 
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300..900&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
     <style>
-        .work-sans {
-            font-family: 'Work Sans', sans-serif;
+        .red-hat {
+            font-family: "Red Hat Display", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
         }
 
         #menu-toggle:checked+#menu {
@@ -66,15 +70,11 @@
         #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet {
             color: #000;
         }
-
-        section {
-            margin: 20px;
-        }
     </style>
-
+    
 </head>
 
-<body class="bg-white text-gray-500 work-sans leading-normal text-base tracking-normal">
+<body class="bg-white text-gray-500 red-hat leading-normal text-base tracking-normal">
 
     <!--Nav-->
     <header class="sticky top-0 z-50 bg-white shadow-sm">

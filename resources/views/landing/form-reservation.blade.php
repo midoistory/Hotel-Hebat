@@ -11,10 +11,21 @@
     <meta name="keywords"
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300..900&display=swap" rel="stylesheet">
+
+
+    <style>
+        .red-hat {
+            font-family: "Red Hat Display", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 </head>
 
-<body class="bg-white text-gray-600 leading-normal text-base tracking-normal">
+<body class="bg-white red-hat text-gray-600 leading-normal text-base tracking-normal">
     <section class="text-gray-600 body-font">
         <div class="container px-5 mx-auto">
             <div class="flex justify-end items-center mb-6">
@@ -32,8 +43,8 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mt-8">
                     <div class="bg-white border border-gray-200 rounded-lg shadow p-6 mb-8">
-                        <h5 class="text-2xl mb-4 text-gray-800">Cara Reservasi</h5>
-                        <ul class="list-inside text-gray-600 mb-8">
+                        <h5 class="text-2xl mb-6 text-gray-800">Cara Reservasi</h5>
+                        <ul class="list-inside text-gray-600 mb-10 text-sm">
                             <li>1. Scan barcode yang di bawah ini menggunakan aplikasi OVO atau Gopay.</li>
                             <li>2. Jumlah yang dibayar harus sesuai dengan total harga di form detail pesanan.
                             </li>
@@ -49,7 +60,7 @@
                     </div>
 
                     <div class="bg-white border border-gray-200 rounded-lg shadow p-6 mb-8">
-                        <h5 class="text-2xl mb-4 text-gray-800">Detail Pesanan</h5>
+                        <h5 class="text-2xl mb-6 text-gray-800">Detail Pesanan</h5>
                         <table class="w-full text-sm text-gray-600 mb-8">
                             <tbody>
                                 <tr>
@@ -245,7 +256,7 @@
                     </div>
 
                     <button type="submit"
-                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg px-5 py-2.5 text-center">
+                        class="w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray -300 rounded-lg px-5 py-2.5 text-center">
                         Submit
                     </button>
                 </div>

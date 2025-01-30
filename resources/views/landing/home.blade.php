@@ -24,14 +24,19 @@
             </a>
         @elseif (Auth::user()->role === 'user')
             {{-- Jika login sebagai user --}}
-            <a href="{{ route('user.reservation') }}"
-                class="inline-flex items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
-                Pesanan Saya
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-            </a>
+            <div class="inline-flex items-center space-x-2">
+                <a href="{{ route('user.reservation') }}"
+                    class="bg-black border-0 py-1 px-3 focus:outline-none hover:bg-gray-800 rounded text-white mt-4 md:mt-0">
+                    Pesanan Saya
+                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="border border-black py-1 px-3 hover:bg-gray-50 rounded text-black mt-4 md:mt-0">
+                        Logout
+                    </button>
+                </form>
+            </div>
         @elseif (Auth::user()->role === 'resepsionis')
             {{-- Jika login sebagai resepsionis --}}
             <a href="{{ route('resepsionis.dashboard') }}"
@@ -54,18 +59,15 @@
             <div class="ms-3 text-sm">
                 <div class="mb-2 text-sm">{{ session('success') }}
                 </div>
-                <a href="{{ route('user.reservation') }}"
-                    class="inline-flex px-2.5 py-1.5 text-xs text-center text-white bg-black rounded-lg hover:bg-gray-900">Lihat
-                    Pesanan</a>
             </div>
             <button type="button"
                 class="ms-auto -mx-1.5 -my-1.5 bg-white justify-center items-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-                data-dismiss-target="#toast-message-cta" aria-label="Close">
+                onclick="this.parentElement.parentElement.style.display='none'" aria-label="Close">
                 <span class="sr-only">Close</span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
             </button>
         </div>
@@ -75,8 +77,8 @@
 <style>
     #toast-message-cta {
         position: fixed;
-        bottom: 1rem;
-        right: 1rem;
+        bottom: 2rem;
+        right: 2rem;
         z-index: 9999;
         animation: slideIn 0.3s ease-in-out;
     }
@@ -238,7 +240,7 @@
                             <p class="leading-7 text-sm text-green-500 pt-2">Tersedia: {{ $roomType->rooms_count }} kamar
                             </p>
                         @endif
-                    </a>
+                    </button>
                 </div>
             @empty
                 <p class="text-gray-500 flex mx-auto mt-0 px-2 py-3">Tidak ada tipe kamar tersedia.</p>
@@ -258,16 +260,16 @@
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md">
                         <div class="lg:w-1/2 px-6">
-                            <h2 class="text-gray-900 tracking-widest text-xs">Alamat</h2>
-                            <p class="mt-1">Jl. Raya Karawang No. 12, City Center, Karawang, Indonesia.
+                            <h2 class="text-gray-900 tracking-widest text-xm">Alamat</h2>
+                            <p class="mt-1 text-xs">Jl. Raya Karawang No. 12, City Center, Karawang, Indonesia.
                             </p>
                         </div>
                         <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
-                            <h2 class="text-gray-900 tracking-widest text-xs">Email</h2>
-                            <a class="text-indigo-500 leading-relaxed">info@hebat.com</a>
-                            <h2 class="text-gray-900 tracking-widest text-xs mt-4">Telepon
+                            <h2 class="text-gray-900 tracking-widest text-sm">Email</h2>
+                            <a class="text-indigo-500 leading-relaxed text-xs">info@hebat.com</a>
+                            <h2 class="text-gray-900 tracking-widest text-xs mt-4 text-sm">Telepon
                             </h2>
-                            <p class="leading-relaxed">812-3456</p>
+                            <p class="leading-relaxed text-xs">812-3456</p>
                         </div>
                     </div>
                 </div>
@@ -291,8 +293,8 @@
                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                             <span class="ml-4 flex items-start flex-col leading-none">
-                                <p class="leading-relaxed text-gray-200">Pusat Kota</p>
-                                <p class="leading-relaxed text-white">Karawang 4.3 km</p>
+                                <p class="leading-relaxed text-gray-200 text-sm">Pusat Kota</p>
+                                <p class="leading-relaxed text-white text-xs">Karawang 4.3 km</p>
                             </span>
                         </div>
                         <div
@@ -306,8 +308,8 @@
                                 <line x1="3" y1="21" x2="21" y2="21" />
                             </svg>
                             <span class="ml-4 flex items-start flex-col leading-none">
-                                <p class="leading-relaxed text-gray-200">Bandara</p>
-                                <p class="leading-relaxed text-white">Haliem Jakarta 32
+                                <p class="leading-relaxed text-gray-200 text-sm">Bandara</p>
+                                <p class="leading-relaxed text-white text-xs">Haliem Jakarta 32
                                     km</p>
                             </span>
                         </div>

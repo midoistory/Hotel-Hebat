@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\Admin\{
     RoomTypeController,
     AdminSearchController
 };
+use App\Http\Controllers\Dashboard\Resepsionis\ReservationController as ResepsionisReservationController;
 use App\Http\Controllers\Landing\{
     HomeController,
     ReservationController,
@@ -59,5 +60,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
 // Resepsionis routes
 Route::prefix('resepsionis')->name('resepsionis.')->middleware(['auth', 'role:resepsionis'])->group(function() {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [ResepsionisReservationController::class, 'index'])->name('dashboard');
+    Route::get('reservation', [ResepsionisReservationController::class, 'reservation'])->name('reservation');
 });

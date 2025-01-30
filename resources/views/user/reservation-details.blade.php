@@ -12,11 +12,20 @@
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
 
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300..900&display=swap" rel="stylesheet">
+
+
+    <style>
+        .red-hat {
+            font-family: "Red Hat Display", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 
 </head>
 
-<body class="bg-white text-gray-500 work-sans">
+<body class="bg-white text-gray-500 red-hat">
     <section class="text-gray-600 body-font py-8">
         <div class="bg-white rounded-lg shadow-lg px-8 py-10 max-w-xl mx-auto">
             <div class="flex items-center justify-between mb-8">
@@ -25,13 +34,13 @@
                     <div class="text-gray-700 font-semibold text-lg">Hotel Hebat</div>
                 </div>
                 <div class="text-gray-700">
-                    <div class="font-bold text-xl mb-2 uppercase">Reservation Details</div>
-                    <div class="text-sm">BOOKING ID: {{ $reservations->id }}H3B4T</div>
+                    <div class="font-semibold text-xl mb-2 uppercase">Reservation Details</div>
+                    <div class="text-sm">BOOKING ID: {{ $reservations->id }}</div>
                     <div class="text-sm">CUSTOMER ID: {{ $users->id }}</div>
                 </div>
             </div>
             <div class="border-b-2 border-gray-300 pb-8 mb-8">
-                <h2 class="text-xl mb-4">Guest Detail:</h2>
+                <h2 class="text-xl mb-4">Guest Details:</h2>
                 <div class="text-gray-700 mb-2">{{ $reservations->name }}</div>
                 <div class="text-gray-500 mb-2">{{ $reservations->email }}</div>
                 <div class="text-gray-500 mb-2">{{ $reservations->phone }}</div>
@@ -65,9 +74,9 @@
             <div class="border-t-2 border-gray-300 pt-8 mb-8">
                 <p class="text-sm text-gray-500 mb-8">Please <span class="font-bold">Print</span> the Reservation
                     Details and present it to the
-                    <span class="font-bold">Hotel Hebat</span> upon check-in.
+                    <span class="font-bold">Hotel Hebat</span> upon check-in. If you have problem, you can call our
+                    customer service center at 123-689.
                 </p>
-                <div class="text-gray-600 text-sm mb-2">Call our customer service center 24/7 : +62 123475689</div>
                 <div class="text-gray-600 text-sm mb-2">Website: https://hotelhebat.com | email:
                     customerservice@hebat.com</div>
             </div>

@@ -16,12 +16,22 @@
     <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <script src="{{ asset('windmill/assets/js/init-alpine.js') }}"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300..900&display=swap" rel="stylesheet">
+
+    <style>
+        .red-hat {
+            font-family: "Red Hat Display", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body>
     <form method="POST" action="{{ route('login') }}">
         @csrf
-        <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+        <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900 red-hat">
             <div class="flex h-full mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
                 <div class="flex flex-col overflow-y-auto md:flex-row">
                     <div class="flex items-center justify-center p-8 md:h-auto">
@@ -33,7 +43,7 @@
                             <div class="mt-4 text-sm">
                                 <span class="text-gray-700 dark:text-gray-400">Email</span>
                                 <input type="email" name="email" step="0.01" value="{{ old('email') }}"
-                                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-gray-400 focus:outline-none focus:shadow-outline-gray dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                     required placeholder="user@hebat.com" />
                                 @error('email')
                                     <span class="text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
@@ -43,7 +53,7 @@
                             <div class="mt-4 text-sm">
                                 <span class="text-gray-700 dark:text-gray-400">Password</span>
                                 <input type="password" name="password" step="0.01" value="{{ old('password') }}"
-                                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                    class="py-2 px-4 block w-full mt-1 text-sm border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-gray-400 focus:outline-none focus:shadow-outline-gray dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                     required placeholder="***************" />
                                 @error('password')
                                     <span class="text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
@@ -51,7 +61,7 @@
                             </div>
 
                             <button type="submit"
-                                class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
                                 Log in
                             </button>
                         </div>
