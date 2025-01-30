@@ -44,17 +44,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mt-8">
                     <div class="bg-white border border-gray-200 rounded-lg shadow p-6 mb-8">
                         <h5 class="text-2xl mb-6 text-gray-800">Cara Reservasi</h5>
-                        <ul class="list-inside text-gray-600 mb-10 text-sm">
-                            <li>1. Scan barcode yang di bawah ini menggunakan aplikasi OVO atau Gopay.</li>
-                            <li>2. Jumlah yang dibayar harus sesuai dengan total harga di form detail pesanan.
+                        <ul class="list-inside text-gray-600 mb-10 text-xs">
+                            <li class="text-black font-semibold mb-2">Ikuti langkah-langkah untuk reservasi sebagai
+                                berikut:</li>
+                            <li>1. Isi Data Reservasi (Detail reservasi dan Detail tamu).</li>
+                            <li>2. Cek Ketersediaan Kamar (Pastikan kamar tersedia sebelum lanjut ke pembayaran)
                             </li>
-                            <li>3. Screenshot bukti pembayaran, lalu unggah di form detail pesanan.</li>
-                            <li>4. Lengkapi form detail tamu dan detail pesanan dengan informasi yang benar.</li>
+                            <li>3. Lakukan Pembayaran (Transfer sesuai harga yang tertera)</li>
+                            <li>4. Upload Bukti Pembayaran (Unggah bukti transaksi di form)</li>
                             <li>5. Setelah mengisi form, klik tombol "Submit" untuk mengirimkan reservasi.</li>
-                            <li>6. Tunggu konfirmasi dari pihak hotel. (max: 24 jam)</li>
+                            <li>6. Konfirmasi & Tunggu Persetujuan (Hotel akan memverifikasi dalam 24 jam)</li>
+                            <li>7. Pemesanan lebih dari 5 kamar, silakan hubungi pihak hotel.</li>
                         </ul>
                         <div class="mt-4">
-                            <p class="text-sm text-black mb-8">Scan Barcode:</p>
+                            <p class="text-sm text-black mb-8">Scan barcode untuk pembayaran:</p>
                             <img src="{{ asset('img/barcode.gif') }}" alt="barcode" class="w-48 h-auto">
                         </div>
                     </div>
@@ -74,7 +77,7 @@
                                     <td class="px-4 py-2">{{ number_format($roomType->room_size, 0, ',', '.') }} m²</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-2">Harga per Malam</td>
+                                    <td class="px-4 py-2">Harga per Malam</td>fjum
                                     <td class="px-4 py-2">Rp {{ number_format($roomType->price, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr class="bg-gray-50">
@@ -270,3 +273,4 @@
 </body>
 
 </html>
+

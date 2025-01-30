@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="flex">
-                                <span class="text-black text-2xl">Rp.
+                                <span class="text-black text-xl">Rp.
                                     {{ number_format($roomType->price, 0, ',', '.') }} <span
                                         class="leading-relaxed text-base text-gray-600">/malam</span></span>
                                 <a href="{{ route('landing.form-reservation', ['id' => $roomType->id]) }}"

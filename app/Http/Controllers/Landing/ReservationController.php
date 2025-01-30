@@ -23,11 +23,22 @@ class ReservationController extends Controller
     {
         $validatedData = $request->validate($this->reservationValidationRules());
 
+        $roomType = RoomType::findOrFail($validatedData['room_type_id']);
+        $availableRooms = $roomType->rooms()->where('occupancy', 'available')->count();
+
+        // Validasi jumlah kamar yang dipesan
+        if ($validatedData['jumlah_kamar'] > $availableRooms) {
+            return back()->withErrors(['jumlah_kamar' => 'Jumlah kamar yang tersedia hanya ' . $availableRooms . '.']);
+        }
+
+        // Batasi maksimal pemesanan 5 kamar
+        if ($validatedData['jumlah_kamar'] > 5) {
+            return back()->withErrors(['jumlah_kamar' => 'Pesan lebih dari 5 kamar? Silakan hubungi pihak hotel.']);
+        }
+
         $imagePath = $request->hasFile('image')
             ? $request->file('image')->store('reservations', 'public')
             : null;
-
-        $roomType = RoomType::findOrFail($validatedData['room_type_id']);
 
         $days = Carbon::parse($validatedData['check_in'])->diffInDays(Carbon::parse($validatedData['check_out']));
         $totalPrice = $roomType->price * $days * $validatedData['jumlah_kamar'];
@@ -36,9 +47,17 @@ class ReservationController extends Controller
             'image' => $imagePath,
             'total_price' => $totalPrice,
             'user_id'   => auth()->id(),
+            'status'    => 'pending',
         ]));
 
         return redirect()->route('landing.home')->with('success', 'Reservasi berhasil dibuat! Lihat pesanan Anda.');
+    }
+
+    public function destroy($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
+        return redirect()->route('user.reservation')->with('success', 'Reservasi berhasil dibatalkan.');
     }
 
     private function reservationValidationRules()
@@ -70,6 +89,7 @@ class ReservationController extends Controller
         ->where('user_id', auth()->id())
         ->firstOrFail();
 
-        return view('user.reservation-details', compact('reservations', 'users'));
+        return view('user.reservation-receipt', compact('reservations', 'users'));
     }
 }
+

@@ -12,7 +12,7 @@ class Reservation extends Model
     protected $fillable = [
         'user_id', 'room_type_id', 'check_in', 'check_out', 'jumlah_kamar',
         'total_price', 'name', 'email', 'phone', 'payment_method',
-        'image', 'notes'
+        'image', 'notes', 'status'
     ];
 
 

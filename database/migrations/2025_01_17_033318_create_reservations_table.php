@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('payment_method', ['ovo', 'gopay']);
             $table->string('image');
             $table->string('notes')->nullable();
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'checked-in', 'checked-out'])->default('pending');
             $table->timestamps();
         });
     }

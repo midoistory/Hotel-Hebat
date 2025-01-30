@@ -34,10 +34,11 @@ Route::get('/room/{id}', [HomeController::class, 'show'])->name('landing.room.sh
 // Reservation routes
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/form-reservation/{id}', [HomeController::class, 'formReservation'])->name('landing.form-reservation');
-    Route::get('/resevation/create', [ReservationController::class, 'create'])->name('reservation.create');
+    Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
     Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservation/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
     Route::get('/user/reservation', [ReservationController::class, 'userReservation'])->name('user.reservation');
-    Route::get('/user/reservation/{id}', [ReservationController::class, 'userReservationDetail'])->name('user.reservation-details');
+    Route::get('/user/reservation/{id}', [ReservationController::class, 'userReservationDetail'])->name('user.reservation-receipt');
 });
 
 // Authentication routes
