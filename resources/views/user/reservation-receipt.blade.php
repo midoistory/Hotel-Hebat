@@ -23,9 +23,22 @@
         }
     </style>
 
+    <script>
+        function printSection(sectionId) {
+            var printContent = document.getElementById(sectionId).innerHTML;
+            var originalContent = document.body.innerHTML;
+
+            document.body.innerHTML = printContent;
+            setTimeout(() => {
+                window.print();
+                location.reload();
+            }, 500);
+        }
+    </script>
+
 </head>
 
-<body class="bg-white text-gray-500 red-hat">
+<body class="bg-white text-gray-500 red-hat" id="print-area">
     <section class="text-gray-600 body-font py-8">
         <div class="bg-white rounded-lg shadow-lg px-8 py-10 max-w-xl mx-auto">
             <div class="flex items-center justify-between mb-8">
@@ -86,7 +99,8 @@
     <div class="fixed bottom-0  w-full flex justify-between bg-white p-4">
         <div></div>
         <div class="flex items-center">
-            <button onclick="window.print()" class="mr-4 bg-black text-white px-8 py-2 rounded-md hover:bg-gray-800">
+            <button onclick="printSection('print-area')"
+                class="mr-4 bg-black text-white px-8 py-2 rounded-md hover:bg-gray-800">
                 Print
             </button>
             <a href="{{ route('user.reservation') }}"

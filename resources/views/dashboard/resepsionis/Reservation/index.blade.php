@@ -46,9 +46,9 @@
                     <td class="px-4 py-3 text-sm">{{ $reservation->check_out }}</td>
                     <td class="px-4 py-3 text-sm">{{ $reservation->roomType->name }}</td>
                     <td class="px-4 py-3 text-sm">Rp.{{ number_format($reservation->total_price, 0, ',', '.') }}</td>
-                    <td class="px-4 py-3 text-sm">Belum Selesai</td>
+                    <td class="px-4 py-3 text-sm">{{ $reservation->status }}</td>
                     <td class="px-4 py-3">
-                        <a href="#"
+                        <a href="{{ route('resepsionis.print', $reservation->id) }}"
                             class="flex items-center px-2 py-2 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit">
                             <svg class="h-6 w-6 text-fuchsia-500" width="24" height="24" viewBox="0 0 24 24"
@@ -60,7 +60,7 @@
                                 <rect x="7" y="13" width="10" height="8" rx="2" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{ route('resepsionis.reservation.show', ['reservation' => $reservation->id]) }}"
                             class="flex items-center px-2 py-2 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete">
                             <svg class="h-6 w-6 text-fuchsia-500" width="24" height="24" viewBox="0 0 24 24"

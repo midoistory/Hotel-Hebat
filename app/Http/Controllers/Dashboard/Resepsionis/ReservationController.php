@@ -34,12 +34,17 @@ class ReservationController extends Controller
         }
 
         $reservations = $reservations->paginate(10);
-
-        return view('dashboard.resepsionis.Reservation.index', compact('reservations'));
+        return view('dashboard.resepsionis.reservation.index', compact('reservations'));
     }
 
     public function show(Reservation $reservation)
     {
-        return view('dashboard.resepsionis.Reservation.view', compact('reservation'));
+        return view('dashboard.resepsionis.reservation.view', compact('reservation'));
+    }
+
+    public function print(Reservation $reservation)
+    {
+        $reservations = $reservation->get();
+        return view('dashboard.resepsionis.reservation.print', compact('reservations'));
     }
 }

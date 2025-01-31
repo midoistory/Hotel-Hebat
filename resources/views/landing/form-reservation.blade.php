@@ -77,7 +77,7 @@
                                     <td class="px-4 py-2">{{ number_format($roomType->room_size, 0, ',', '.') }} m²</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-2">Harga per Malam</td>fjum
+                                    <td class="px-4 py-2">Harga per Malam</td>
                                     <td class="px-4 py-2">Rp {{ number_format($roomType->price, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr class="bg-gray-50">

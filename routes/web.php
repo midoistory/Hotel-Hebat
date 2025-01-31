@@ -14,7 +14,7 @@ use App\Http\Controllers\Landing\{
     HomeController,
     ReservationController,
 };
-
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,5 +62,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 // Resepsionis routes
 Route::prefix('resepsionis')->name('resepsionis.')->middleware(['auth', 'role:resepsionis'])->group(function() {
     Route::get('dashboard', [ResepsionisReservationController::class, 'index'])->name('dashboard');
+    Route::get('/reservation/{reservation}', [ResepsionisReservationController::class, 'show'])->name('reservation.show');
     Route::get('reservation', [ResepsionisReservationController::class, 'reservation'])->name('reservation');
+    Route::get('/print/reservation/{id}', [ResepsionisReservationController::class, 'print'])->name('print');
 });
