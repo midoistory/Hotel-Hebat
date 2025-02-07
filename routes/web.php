@@ -14,7 +14,7 @@ use App\Http\Controllers\Landing\{
     HomeController,
     ReservationController,
 };
-use App\Models\Reservation;
+use App\Http\Controllers\Dashboard\Resepsionis\ResepsionisSearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,4 +65,6 @@ Route::prefix('resepsionis')->name('resepsionis.')->middleware(['auth', 'role:re
     Route::get('/reservation/{reservation}', [ResepsionisReservationController::class, 'show'])->name('reservation.show');
     Route::get('reservation', [ResepsionisReservationController::class, 'reservation'])->name('reservation');
     Route::get('/print/reservation/{id}', [ResepsionisReservationController::class, 'print'])->name('print');
+    Route::get('/search', [ResepsionisSearchController::class, 'search'])->name('resepsionis.search');
+    Route::get('/filter', [ResepsionisSearchController::class, 'filter'])->name('resepsionis.filter');
 });

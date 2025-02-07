@@ -22,17 +22,6 @@ class ReservationController extends Controller
 
         $reservations = Reservation::with(['room.roomType', 'user']);
 
-        if ($query) {
-            $reservations->whereHas('user', function ($q) use ($query) {
-                $q->where('name', 'like', "%$query%");
-            })
-            ->orWhereHas('room.roomType', function ($q) use ($query) {
-                $q->where('name', 'like', "%$query%");
-            })
-            ->orWhere('check_in', 'like', "%$query%")
-            ->orWhere('check_out', 'like', "%$query%");
-        }
-
         $reservations = $reservations->paginate(10);
         return view('dashboard.resepsionis.reservation.index', compact('reservations'));
     }
@@ -48,3 +37,4 @@ class ReservationController extends Controller
         return view('dashboard.resepsionis.reservation.print', compact('reservations'));
     }
 }
+

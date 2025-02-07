@@ -16,6 +16,44 @@
         </div>
     @endif
 
+    <form method="GET" action="{{ route('resepsionis.resepsionis.filter') }}" class="space-y-2 w-full mb-10">
+        <div class="flex items-center space-x-2 w-full">
+            <div class="w-1/3">
+                <label for="start_date" class="block text-xs font-medium text-gray-700 dark:text-gray-400">
+                    Start Date
+                </label>
+                <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}"
+                    class="mt-1 block w-full py-1 px-2 border border-gray-300 rounded-md focus:outline-none
+                focus:ring-purple-500 focus:border-purple-500 sm:text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+            </div>
+
+            <div class="w-1/3">
+                <label for="end_date" class="block text-xs font-medium text-gray-700 dark:text-gray-400">
+                    End Date
+                </label>
+                <input type="date" id="end_date" name="end_date" value="{{ request('end_date') }}"
+                    class="mt-1 block w-full py-1 px-2 border border-gray-300 rounded-md focus:outline-none
+                focus:ring-purple-500 focus:border-purple-500 sm:text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+            </div>
+
+            <div class="w-1/3 flex space-x-2">
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-1.5 border border-transparent text-xs font-medium
+                rounded-md shadow-sm text-white bg-black hover:bg-gray-700 focus:outline-none
+                focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    Filter
+                </button>
+                <a href="{{ route('resepsionis.resepsionis.filter') }}"
+                    class="inline-flex items-center px-4 py-1.5 border border-gray-300 text-xs font-medium
+                rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-100 focus:outline-none
+                focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    Reset
+                </a>
+            </div>
+        </div>
+    </form>
+
+
     <table class="w-full whitespace-no-wrap">
         <thead>
             <tr

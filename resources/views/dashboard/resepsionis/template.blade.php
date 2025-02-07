@@ -31,7 +31,7 @@
         <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0" id="sidebar">
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                    Admin
+                    Resepsionis
                 </a>
                 <ul class="mt-6">
                     <!-- Dashboard Menu -->
@@ -79,7 +79,7 @@
                 <div
                     class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
                     <!-- Search input -->
-                    <form action="{{ route('admin.search') }}" method="GET" class="flex justify-center flex-1">
+                    <form action="{{ route('resepsionis.resepsionis.search') }}" method="GET" class="flex justify-center flex-1">
                         <div class="relative w-full max-w-xl focus-within:text-purple-500">
                             <div class="absolute inset-y-0 flex items-center pl-2">
                                 <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
